@@ -2,38 +2,53 @@
 <html>
 <head>
 
-  <title>Log in</title>
+  <title>Bienvenida</title>
 
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel= "stylesheet" href="../css/style.css">
 
 </head>
 
 <body>
-  <div id="login1">
-    <h1 id="bienvenida">Ingresa los datos que se te pidan</h1>
-
-    <form action="index.php" method="POST">
-      <!---Label Usuario e Input-->
-      <label for="usuario">Usuario</label>
-      <br>
-      <input type="text" id="usuario" name="usuario" placeholder="ej. pepe123" 
-      required>
-      
-      <br>
-      <br>
-      
-      <!--Label Clave e Input-->
-      <label for="clave">Clave</label>
-      <br>
-      <input type="password" id="clave" name="clave" placeholder="Contraseña"
-      required>
+  
+    <div class="contenedor">
     
-      <br>
-      <br>
+        <div class="col" id="login1">
+            
+        </div>
+      
+        <div class="col" id="login2">
+          <img src="../logo.jpg" width="100">
+          <br>
+          <h1 class="titulo">Bienvenido</h1>
+          <br>
+          
+            <form action="index.php" method="POST">
+              
 
-      <button type="submit" name="submit">Ingresar</button>
-  </div>
-</form>
+              <!---Label Usuario e Input-->
+              <br>
+              <h4 class="texto">Nombre de Usuario</h4>
+              <input class="input" type="text" id="usuario" name="usuario" placeholder="ej. Pepe123" required>
+                
+              <br>
+              <br>
+              <br>
+            
+
+              <!--Label Clave e Input-->
+              <h4 class="texto">Contraseña</h4>
+              <input class="input" type="password" id="clave" name="clave" placeholder="Contraseña" required>
+              
+              <br>
+              <br>
+              <br>
+
+              <button class="btn" type="submit" name="submit">Ingresar</button>
+            </form>
+        </div>
+       
+
+    </div>
   
 <?php
 
@@ -47,11 +62,9 @@
       echo("datos correctos");
       header("Location: http://localhost/DesarrolloWeb/dashboard/index.php");
       
-    }else{
-      echo("datos incorrectos");
     }
   }
   ?>
-  
+
 </body>
 </html>
