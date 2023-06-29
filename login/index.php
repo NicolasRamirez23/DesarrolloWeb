@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  <script src="script.js"></script>
   
     <div class="contenedor">
     
@@ -43,28 +44,9 @@
               <br>
               <br>
 
-              <button class="btn" type="submit" name="submit">Ingresar</button>
+              <button class="btn" type="boton" name="boton" onclick="hicieronClick()">Ingresar</button>
             </form>
         </div>
-       
-
     </div>
-  
-<?php
-
-  // funcion isset sirve para verificar si se ha enviado el formulario
-  if (isset($_POST['submit'])) {
-    // Obtener los valores del formulario
-    $usuario = $_POST['usuario'];
-    $clave = $_POST['clave'];
-
-    if($usuario == 'admin' && $clave == '1234'){
-      echo("datos correctos");
-      header("Location: http://localhost/DesarrolloWeb/dashboard/index.php");
-      
-    }
-  }
-  ?>
-
 </body>
 </html>
