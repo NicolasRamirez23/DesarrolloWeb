@@ -1,14 +1,15 @@
 <?php
 
-   $usuario=$_POST['usuario'];
-   $clave=$_POST['clave'];
+$user = $_POST["user"];
+$pass = $_POST["pass"];
 
-
+if((include 'config.inc')==TRUE){
+    echo(file_get_contents('config.inc',false,null,0,null));
     
-   if($usuario == 'admin' && $clave == '1234'){
-        echo("1");
-    }else{
-        echo("0");
-    }
-  
-  ?>
+}
+    
+    
+
+
+
+?>  
