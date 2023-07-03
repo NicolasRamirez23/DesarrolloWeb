@@ -1,14 +1,25 @@
 <?php
 
 $user = $_POST["user"];
-$pass = $_POST["pass"];
+$clave = $_POST["pass"];
 
-if((include 'config.inc')==TRUE){
-    echo(file_get_contents('config.inc',false,null,0,null));
-    
+$usuarios = parse_ini_file('config.inc');
+
+$flag = false;
+
+
+foreach ($usuarios as $usuario => $contrasena) {
+    if($user == $usuario && $clave == $contrasena){
+        $flag=true;
+    }
 }
-    
-    
+
+if($flag==true){
+    echo "Exito";
+}else{
+    echo "Error";
+}
+
 
 
 

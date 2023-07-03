@@ -1,2 +1,6 @@
 26-junio-2023
     Agregar estilos a la pagina mediante archivos general
+26-junio-2023
+    Pasar informacion de js a php usando ajax
+03-julio-2023
+    Comprobacion de acceso de informacion brindada de un archivo .inc

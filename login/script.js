@@ -6,7 +6,7 @@ $(".btn").click(function(){
         user: usuario,
         pass: clave
     },function(datos,estado){
-        alert("datos: "+datos+"estado: "+estado);
+        alert(datos);
         
     })
 
