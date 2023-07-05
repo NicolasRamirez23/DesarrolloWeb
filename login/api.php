@@ -1,12 +1,12 @@
 <?php
-
-include('config.inc');
 include('../config/config.inc');
+include('config.inc');
 
 $user = $_POST["user"];
 $clave = $_POST["pass"];
 
 $flag = false;
+
 
 foreach ($usuarios as $usuario => $contrasena) {
     if($user == $usuario && $clave == $contrasena){
@@ -17,11 +17,9 @@ foreach ($usuarios as $usuario => $contrasena) {
 
 if($flag==true){
     echo $flag;
-    array_push($_SESSION[$user]);
-    unset($_SESSION);
-
-  
-    
+    $_SESSION['user'] = $user;
+    exit();
+     
 }else{
     echo "Error";
 }
