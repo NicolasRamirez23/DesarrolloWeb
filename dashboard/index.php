@@ -1,5 +1,10 @@
 <?php 
     require("../config/config.inc");
+    if(!isset($_SESSION['usuario'])){
+        header ("location: ../login/index.php");
+    }else{
+        $usuario = $_SESSION['usuario'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -12,8 +17,9 @@
     <h1>¡Hola, bienvenido <?php echo $usuario ?>! </h1>
 
     
-    <button class="btncs" action="../config/config.inc" method="post" type="submit">Cerrar sesión</button>
+    <button id="btncs" type="boton" name="boton">Cerrar Sesion</button>
     
 </body>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src ="script.js"></script>
 </html>

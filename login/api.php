@@ -1,28 +1,26 @@
 <?php
 include('../config/config.inc');
-include('config.inc');
+include('../config/db.inc');
 
 $user = $_POST["user"];
 $clave = $_POST["pass"];
 
-$flag = false;
+$consulta = "SELECT*FROM usuarios where usuario = '$user' and clave = '$clave'";
 
+$resultado = mysqli_query($conexion,$consulta);
 
-foreach ($usuarios as $usuario => $contrasena) {
-    if($user == $usuario && $clave == $contrasena){
-        $flag=true;
-        break;
-    }
+$filas = mysqli_num_rows($resultado);
+
+if($filas){
+    $_SESSION['usuario']=$user;
+    echo  true;
 }
 
-if($flag==true){
-    echo $flag;
-    $_SESSION['user'] = $user;
-    exit();
-     
-}else{
-    echo "Error";
-}
+mysqli_free_result($resultado);
+mysqli_close($conexion);
+
+
+
 
 
 ?>  
