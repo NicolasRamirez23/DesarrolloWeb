@@ -5,7 +5,7 @@ include('../config/db.inc');
 $user = $_POST["user"];
 $clave = $_POST["pass"];
 
-$consulta = "SELECT*FROM usuarios where usuario = '$user' and clave = '$clave'";
+$consulta = "SELECT*FROM sis_usuario where usuario = '$user' and contrasena = '$clave'";
 
 $resultado = mysqli_query($conexion,$consulta);
 

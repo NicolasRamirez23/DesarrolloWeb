@@ -1,22 +1,28 @@
 <?php
 
-$server = "localhost";
-$user = "root";
-$pass = "";
-$db = "formulario";
+$server = "132.148.79.103";
+$user = "adminscbapps_ssat";
+$pass = ")=%I.]CZkI*}";
+$db = "adminscbapps_ssat";
 
 $conexion = new mysqli($server,$user,$pass,$db);
 
 
-if($conexion->connect_errno){
+if(!$conexion){
+   
     die("conexion fallida " . $conexion->connect_errno);
 }else{
-    /*Creacion de los 100 usuarios
+    
+    /*
+    $fecha_actual = date("d-m-y");
+    $hora_actual = date("h:i:s");
+    Creacion de los 100 usuarios
+
     for($i = 1; $i<101; $i++){
-        $sql = $conexion -> query(" insert into usuarios(usuario,nombre,clave)values('test$i','nombre$i','clave$i')");
+        $sql = $conexion -> query("insert into sis_usuario(fecha,hora,nombre,usuario,contrasena)
+        values('$fecha_actual','$hora_actual','nombre$i','usuario$i','clave$i')");
+
 
     }*/
 }
 
-
-?>
