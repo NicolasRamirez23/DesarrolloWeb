@@ -11,4 +11,9 @@ $("#btncs").click(function(){
     
 });
 
+$("#usuarios").click(function(){
+     window.location.href="../usuarios/index.php";
+});
+
+
 

@@ -16,8 +16,12 @@
 
     <h1>¡Hola, bienvenido <?php echo $usuario ?>! </h1>
 
+    <button id="usuarios" type="boton" name="btnusuario">Ver Usuarios</button>
     
-    <button id="btncs" type="boton" name="boton">Cerrar Sesion</button>
+    <br>
+    <br>
+    
+    <button id="btncs" type="boton" name="botoncs">Cerrar Sesion</button>
     
 </body>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
