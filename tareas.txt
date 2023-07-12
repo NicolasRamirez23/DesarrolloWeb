@@ -6,3 +6,5 @@
     Comprobacion de acceso de informacion brindada de un archivo .inc
 06-julio-2023
     Funcionamiento de inicio sesion y cierre sesion. Uso de sessions en funcionamiento igualmente.
+12-julio-2023
+    Funcionamiento de module eliminar y editar
