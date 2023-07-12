@@ -19,7 +19,7 @@ if(!$conexion){
     Creacion de los 100 usuarios
 
     for($i = 1; $i<101; $i++){
-        $sql = $conexion -> query("insert into sis_usuario(fecha,hora,nombre,usuario,contrasena)
+        $sql = $conexion -> query("insert into sis_usuario (fecha,hora,nombre,usuario,contrasena)
         values('$fecha_actual','$hora_actual','nombre$i','usuario$i','clave$i')");
 
 

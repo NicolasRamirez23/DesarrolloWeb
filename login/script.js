@@ -7,12 +7,9 @@ $(".btn").click(function(){
         user: usuario,
         pass: clave
         },function(datos,estado){
-            console.log (datos);
         if(datos==1){
-            console.log ("holajs");
             window.location.href = "../dashboard/index.php";
         }else{
-            console.log ();
             alert("Los datos son incorrectos. Por favor intentar denuevo.");
         }
         

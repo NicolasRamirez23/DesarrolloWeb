@@ -12,6 +12,8 @@ if ($result->num_rows > 0) {
     $arreglo[]=$row;
   }
 }
-print_r($arreglo);
+$arrayDeArrays = json_encode($arreglo);
+print_r($arrayDeArrays);
 
+  
  
