@@ -1,5 +1,5 @@
 <?php 
-    require("../../config/config.inc");
+    require("../../../config/config.inc");
     if(!isset($_SESSION['usuario'])){
         header ("location: ../login/index.php");
     }else{
@@ -14,9 +14,9 @@
 <h1>Editar Usuario</h1>
 
 <div class="editar">
-    <label for="folioeditar">Ingrese ID de usuario</label>
+    <label for="folioeditar">ID del usuario</label>
     <br>
-    <input type="text" name="folioeditar" id="folioeditar"></input>
+    <input type="text" name="folio-editar" id="folio-editar"></input>
     <br><br>
 
 
@@ -35,10 +35,7 @@
     <input type="password" name="passeditar" id="passeditar"></input>
     <br><br>
 
-    <button class="btnebuscar" type="boton" name="btnebuscar">Buscar</button>
-    <br><br>
-
-    <button class="btneditar" type="boton" name="btneditar">Editar</button>
+    <button class="btn-actualizar" type="boton" name="btn-actualizar">Actualizar</button>
     <br><br>
     <button class="regresar" type="boton" name="regresar">Regresar</button>
 

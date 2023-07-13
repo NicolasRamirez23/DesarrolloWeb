@@ -30,12 +30,7 @@
         <button id="registro" type="boton" name="registro">Registrar</button>
         <br>
         <br>
-        <button id="eliminar" type="boton" name="eliminar">Eliminar</button>
-        <br>
-        <br>
-        <button id="editar" type="boton" name="editar">Editar</button>
-        <br>
-        <br>
+
 
         <button id="regresar" type="boton">Regresar</button>
 
