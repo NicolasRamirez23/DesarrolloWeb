@@ -1,9 +1,10 @@
 <?php require("../config/db.inc");
 
-$opcion = $_POST["opcion"];
 
-if($opcion == "mostrar"){
+if(isset($_POST['opcion'])){
+  $opcion = $_POST['opcion'];
   
+  if($opcion==="mostrar"){
   $sql="SELECT * from sis_usuario ORDER BY folio DESC LIMIT 10";
   $result=mysqli_query($conexion,$sql);
 
@@ -16,13 +17,14 @@ if($opcion == "mostrar"){
       $arreglo[]=$row;
     }
   }
-  $arrayDeArrays = json_encode($arreglo);
-  print_r($arrayDeArrays);
-}
+  
+  $arregloLleno = json_encode($arreglo);
+  
+  print_r($arregloLleno);
+  }
 
 
-
-if($opcion == "registrar"){
+  if($opcion === "registrar"){
     $nombre = $_POST["name"];
     $usuario = $_POST["user"];
     $clave = $_POST["pass"];
@@ -30,16 +32,16 @@ if($opcion == "registrar"){
     $fecha_actual = date("d-m-y");
     $hora_actual = date("h:i:s");
 
-    $sql = $conexion -> query("insert into sis_usuario (fecha,hora,nombre,usuario,contrasena) 
-    values('$fecha_actual','$hora_actual','$nombre','$usuario','$clave')");
+    $sql = $conexion -> query("insert into sis_usuario (fecha,hora,nombre,usuario,contrasena,activo) 
+    values('$fecha_actual','$hora_actual','$nombre','$usuario','$clave','1')");
 
     echo(1);
 
 }
 
-if($opcion=="eliminar"){
+if($opcion==="eliminar"){
   $folio = $_POST["folio"];
-  $sql = "DELETE FROM sis_usuario where folio = $folio";
+  $sql = "UPDATE sis_usuario SET activo = '0' where folio = $folio";
   if($conexion->query($sql)===TRUE){
     echo(2);
   }else{
@@ -48,9 +50,9 @@ if($opcion=="eliminar"){
   $conexion->close();
 }
 
-if($opcion=="buscar"){
+if($opcion==="buscar"){
   $folio = $_POST["folio"];
-  $sql = "SELECT nombre,usuario,contrasena from sis_usuario where folio=$folio";
+  $sql = "SELECT fecha,hora,nombre,usuario,contrasena from sis_usuario where folio=$folio";
 
   $result=mysqli_query($conexion,$sql);
 
@@ -62,7 +64,7 @@ if($opcion=="buscar"){
   print_r($row);
 }
 
-if($opcion=="editar"){
+if($opcion==="editar"){
   $folio=$_POST['folio'];
   $nombre=$_POST['name'];
   $usuario=$_POST['user'];
@@ -70,4 +72,6 @@ if($opcion=="editar"){
 
   $sql = $conexion -> query("UPDATE sis_usuario SET nombre = '$nombre', usuario = '$usuario', contrasena = '$clave' where folio = $folio");
   echo(1);
+}
+
 }

@@ -5,22 +5,24 @@ $("#data").append(
         <td>Hora</td>
         <td>Nombre</td>
         <td>Usuario</td>
+        <td>Activo</td>
         <td>Editar</td>
         <td>Eliminar</td>
     </tr>`
     )
-
+    
 $.ajax({
+    
     url: "api.php",
-    type: "GET",
-    data: {
+    type: "post",
+    data:{
         opcion:"mostrar"
     },
     success: function(response){ 
         
-        var datos = JSON.parse(response);
+        var data = JSON.parse(response);  
         
-        datos.forEach(function(objeto){
+        data.forEach(function(objeto){
 
             $("#data").append(`<tr>
             <td>${objeto.folio}</td>
@@ -28,6 +30,7 @@ $.ajax({
             <td>${objeto.hora}</td>
             <td>${objeto.nombre}</td>
             <td>${objeto.usuario}</td>
+            <td>${objeto.activo}</td>
             <td><button type="boton" class="btn-editar" id=editar${objeto.folio} data-folio="${objeto.folio}">Editar</button></td>
             <td><button type="boton" class="btn-eliminar" id=elimnar${objeto.folio} data-folio="${objeto.folio}">Eliminar</button></td>
             </tr>`)
@@ -43,9 +46,10 @@ $.ajax({
 
 $('body').on('click', '.btn-eliminar', function(){
 
+    var idUsuario = $(this).data('folio');
+    eliminar(idUsuario);
 
-    var folioEliminar = document.getElementById("folioeliminar").value;
-        eliminar(folioEliminar);
+        
         
 });
 
@@ -64,7 +68,9 @@ $("#regresar").click(function(){
 
 
 $('body').on('click', '.btn-editar', function(){
-    window.location.href = "view/editar.php";
+    var idUsuario = $(this).data('folio');
+    window.location.href = "view/editar/editar.php?id="+encodeURIComponent(idUsuario);
+    
 });
 
 
@@ -76,11 +82,10 @@ function eliminar(id){
             opcion:"eliminar",
             folio: id
         },
-        success: function(datos){
-            
+        success: function(datos){   
             if(datos==2){
                 alert("Usuario #"+id+" eliminado correctamente");
-                window.location.href = "../index.php";
+                window.location.href = "index.php";
             }if(datos==3){
                 alert("Error al eliminar usuario");
             }

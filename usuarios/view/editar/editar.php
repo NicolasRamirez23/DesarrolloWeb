@@ -16,9 +16,18 @@
 <div class="editar">
     <label for="folioeditar">ID del usuario</label>
     <br>
-    <input type="text" name="folio-editar" id="folio-editar"></input>
+    <input type="text" name="folio-editar" id="folio-editar" readonly></input>
     <br><br>
 
+    <label for="fecha-editar">Fecha de Creacion </label>
+    <br>
+    <input type="text" name="fecha-editar" id="fecha-editar" readonly></input>
+    <br><br>
+
+    <label for="hora-editar">Hora de Creacion</label>
+    <br>
+    <input type="text" name="hora-editar" id="hora-editar" readonly></input>
+    <br><br>
 
     <label for="nombreeditar">Nombre</label>
     <br>

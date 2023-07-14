@@ -1,10 +1,16 @@
-$(".btneditar").click(function(){
-    var folioEditar = document.getElementById("folioeditar").value;
+var urlParams = new URLSearchParams(window.location.search);
+var id = urlParams.get('id');
+document.getElementById("folio-editar").value=id;
+buscar(id);
+
+
+
+$(".btn-actualizar").click(function(){
     var nombreEditar = document.getElementById("nombreeditar").value;
     var usuarioEditar = document.getElementById("usuarioeditar").value;
     var claveEditar = document.getElementById("passeditar").value;
 
-    editar(folioEditar,nombreEditar,usuarioEditar,claveEditar);
+    editar(id,nombreEditar,usuarioEditar,claveEditar);
     
 })
 
@@ -22,6 +28,9 @@ function buscar(id){
             opcion:"buscar"
         },success:function(response){
             var datos = JSON.parse(response);
+            
+            document.getElementById("fecha-editar").value = datos.fecha;
+            document.getElementById("hora-editar").value = datos.hora;
             document.getElementById("nombreeditar").value = datos.nombre;
             document.getElementById("usuarioeditar").value = datos.usuario;
             document.getElementById("passeditar").value = datos.contrasena;
@@ -50,7 +59,8 @@ function editar(id,nombre,usuario,clave){
             console.log(datos);
             if(datos==1){
                 alert("Usuario #"+id+" ha sido editado correctamente.");
-                window.location.href="../index.php"
+                location.reload();
+                //window.location.href="../../index.php";
             }else{
                 alert("Error al editar usuario. Favor de intentar nuevamente");
             }
