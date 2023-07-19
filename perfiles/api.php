@@ -24,12 +24,12 @@ if(isset($_POST['opcion'])){
     }
   
   if($opcion==="mostrar2"){
-  $sql="SELECT folio from sis_usuario ORDER BY folio";
+  $sql="SELECT nombre from sis_usuario ORDER BY folio";
   $result=mysqli_query($conexion,$sql);
 
   $arreglo=[];
 
-  $sql2="SELECT codigo from cat_grupo ORDER BY codigo";
+  $sql2="SELECT descripcion from cat_grupo ORDER BY codigo";
   $result2=mysqli_query($conexion,$sql2);
 
   $arreglo2=[];
@@ -44,12 +44,12 @@ if(isset($_POST['opcion'])){
     while($row2 = $result2->fetch_assoc()){
       $arreglo2[]=$row2;
     }
-  }
+  } 
   
   $arregloLleno = array_merge($arreglo,$arreglo2);
   $arregloLleno = json_encode($arregloLleno);
   
-  print_r($arregloLleno);
+  echo($arregloLleno);
   }
 
 

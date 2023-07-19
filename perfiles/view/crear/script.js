@@ -7,20 +7,8 @@ $.ajax({
     },
     success: function(response){ 
         var data = JSON.parse(response);  
-        console.log(data.nombre);
+        console.log(data);
 
-        if (data && data.descripciones && data.nombres) {
-            var descripciones = data.descripciones;
-            descripciones.forEach(function(objeto) {
-                $("#grupo").append(`<option value="${objeto.descripcion}">${objeto.descripcion}</option>`);
-            });
-
-            var nombres = data.nombres;
-            nombres.forEach(function(objeto) {
-                $("#usuario").append(`<option value="${objeto.nombre}">${objeto.nombre}</option>`);
-            });
-        } 
-    
     
     },
     error: function(error){ 
