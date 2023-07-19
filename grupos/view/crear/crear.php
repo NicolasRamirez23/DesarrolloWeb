@@ -8,31 +8,18 @@
 ?>
 <!DOCTYPE html>
 <head>
-    <title>Registro</title>
+    <title>Crear Grupo</title>
 </head>
 <body>
 
-    <h1>Registro de usuario</h1>
+    <h1>Creacion de Grupo</h1>
 
     <div class="formulario">
-        <label for="nombre">Nombre</label>
+        <label for="descripcion">Descripcion</label>
         <br>
-        <input type="text" name="nombre" id="nombre" placeholder="Ej. Nicolas" required></input>
+        <input type="text" name="descripcion" id="descripcion" placeholder="Ej. Usuario" required></input>
 
         <br><br>
-
-        <label for="usuario">Usuario</label>
-        <br>
-        <input type="text" name="usuario" id="usuario" placeholder="Ej. AtarusV-23" required></input>
-
-        <br><br>
-
-        <label for="clave">Contraseña</label>
-        <br>
-        <input type="password" name="clave" id="clave"></input>
-
-        <br><br>
-
         <button class="btncrear" type="boton" name="botoncrear">Crear</button>
         <br><br>
         <button class="regresar" type="boton" name="regresar">regresar</button>

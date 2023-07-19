@@ -20,6 +20,14 @@
     
     <br>
     <br>
+
+    <button id="grupos" type="boton" name="btn_grupo"> Ver Grupo</button>
+    <br>
+    <br>
+
+    <button id="perfiles" type="boton" name="perfiles"> Ver Perfiles</button>
+    <br>
+    <br>
     
     <button id="btncs" type="boton" name="botoncs">Cerrar Sesion</button>
     

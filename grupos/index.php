@@ -10,31 +10,37 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Usuarios</title>
+        <title>Grupos</title>
 
-        <link rel= "stylesheet" href="style.css">
+        <link rel= "stylesheet" href = "style.css">
     </head>
     <body>
-        <h1>Tabla de usuarios</h1>
+
+        <h1>Asignar Grupo</h1>
 
         <br>
 
         <div class="contenedor">
-            <table id="data" >
+
+            <table id="data">
 
 
             </table>
-        </div>
-        
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-        <button id="registro" type="boton" name="registro">Registrar</button>
+
+
+        </div>
+
+        <button id="crear" type="boton" name="crear">Crear Grupo</button>
         <br>
         <br>
 
 
         <button id="regresar" type="boton">Regresar</button>
 
+
+
+        
     </body>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src ="script.js"></script>

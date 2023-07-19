@@ -8,28 +8,27 @@
 ?>
 <!DOCTYPE html>
 <head>
-    <title>Registro</title>
+    <title>Crear Perfil</title>
 </head>
 <body>
 
-    <h1>Registro de usuario</h1>
+    <h1>Creacion de Perfiles</h1>
 
     <div class="formulario">
-        <label for="nombre">Nombre</label>
-        <br>
-        <input type="text" name="nombre" id="nombre" placeholder="Ej. Nicolas" required></input>
-
-        <br><br>
-
         <label for="usuario">Usuario</label>
         <br>
-        <input type="text" name="usuario" id="usuario" placeholder="Ej. AtarusV-23" required></input>
 
+        <select name="usuario" id = "usuario" multiple>
+
+        </select>
+        
         <br><br>
 
-        <label for="clave">Contraseña</label>
+        <label for="grupo">Grupo</label>
         <br>
-        <input type="password" name="clave" id="clave"></input>
+        <select name="grupo" id = "grupo" multiple>
+
+        </select>
 
         <br><br>
 

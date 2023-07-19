@@ -1,5 +1,5 @@
 <?php
-include('../config/config.inc');
+include("../config/config.inc");
 include('../config/db.inc');
 
 $user = $_POST["user"];

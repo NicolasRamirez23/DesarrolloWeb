@@ -10,12 +10,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Usuarios</title>
+        <title>Perfiles</title>
 
         <link rel= "stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Tabla de usuarios</h1>
+        <h1>Tabla de Perfiles</h1>
 
         <br>
 
@@ -28,7 +28,7 @@
         
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-        <button id="registro" type="boton" name="registro">Registrar</button>
+        <button id="crear" type="boton" name="crear">Crear</button>
         <br>
         <br>
 

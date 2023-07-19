@@ -3,9 +3,8 @@ $("#data").append(
         <td>Folio</td>
         <td>Fecha</td>
         <td>Hora</td>
-        <td>Nombre</td>
         <td>Usuario</td>
-        <td>Activo</td>
+        <td>Grupo</td>
         <td>Editar</td>
         <td>Eliminar</td>
     </tr>`
@@ -20,7 +19,8 @@ $.ajax({
     },
     success: function(response){ 
         
-        var data = JSON.parse(response);  
+        var data = JSON.parse(response); 
+        
         
         data.forEach(function(objeto){
 
@@ -28,9 +28,8 @@ $.ajax({
             <td>${objeto.folio}</td>
             <td>${objeto.fecha}</td>
             <td>${objeto.hora}</td>
-            <td>${objeto.nombre}</td>
             <td>${objeto.usuario}</td>
-            <td>${objeto.activo}</td>
+            <td>${objeto.grupo}</td>
             <td><button type="boton" class="btn-editar" id=editar${objeto.folio} data-folio="${objeto.folio}">Editar</button></td>
             <td><button type="boton" class="btn-eliminar" id=elimnar${objeto.folio} data-folio="${objeto.folio}">Eliminar</button></td>
             </tr>`)
@@ -51,10 +50,16 @@ $('body').on('click', '.btn-eliminar', function(){
  
 });
 
+$('body').on('click', '.btn-editar', function(){
+    var idUsuario = $(this).data('folio');
+    window.location.href = "view/editar/editar.php?id="+encodeURIComponent(idUsuario);
+    
+});
 
-$("#registro").click(function(){
 
-    window.location.href = "view/registro/registro.php";
+$("#crear").click(function(){
+
+    window.location.href = "view/crear/crear.php";
 })
 
 
@@ -62,7 +67,6 @@ $("#regresar").click(function(){
 
     window.location.href = "../dashboard/index.php";
 })
-
 
 
 function eliminar(id){
@@ -84,8 +88,3 @@ function eliminar(id){
 })
 }
 
-
-    
-
-
- 

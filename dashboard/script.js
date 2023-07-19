@@ -15,5 +15,17 @@ $("#usuarios").click(function(){
      window.location.href="../usuarios/index.php";
 });
 
+$("#grupos").click(function(){
+
+    window.location.href="../grupos/index.php";
+
+})
+
+$("#perfiles").click(function(){
+
+    window.location.href="../perfiles/index.php";
+
+})
+
 
 
