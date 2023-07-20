@@ -1,16 +1,23 @@
 var urlParams = new URLSearchParams(window.location.search);
-var id = urlParams.get('id');
-document.getElementById("folio-editar").value=id;
-buscar(id);
+var folio = urlParams.get('id');
+document.getElementById("folio").value=folio;
+buscar(folio);
 
 
 
 $(".btn-actualizar").click(function(){
-    var nombreEditar = document.getElementById("nombreeditar").value;
-    var usuarioEditar = document.getElementById("usuarioeditar").value;
-    var claveEditar = document.getElementById("passeditar").value;
+    console.log("hola");
+    var comboBoxNombre = document.getElementById("usuario_editar");
 
-    editar(id,nombreEditar,usuarioEditar,claveEditar);
+    var usuario = comboBoxNombre.value;
+
+     var comboBoxDescripcion= document.getElementById("grupo_editar");
+        
+    var codigo = comboBoxDescripcion.value;
+    console.log(folio+"---"+codigo+"---"+usuario);
+
+
+    editar(folio,codigo,usuario);
     
 })
 
@@ -25,15 +32,13 @@ function buscar(id){
         type:"POST",
         data:{
             folio:id,
-            opcion:"buscar"
+            opcion:"buscarPerfil"
         },success:function(response){
             var datos = JSON.parse(response);
             
-            document.getElementById("fecha-editar").value = datos.fecha;
-            document.getElementById("hora-editar").value = datos.hora;
-            document.getElementById("nombreeditar").value = datos.nombre;
-            document.getElementById("usuarioeditar").value = datos.usuario;
-            document.getElementById("passeditar").value = datos.contrasena;
+            document.getElementById("fecha_editar").value = datos.fecha;
+            document.getElementById("hora_editar").value = datos.hora;
+               
         },
         error: function(error){
             console.error(error);
@@ -41,28 +46,73 @@ function buscar(id){
 
         
     })
+
+    $.ajax({
+    
+        url: "../../api.php",
+        type: "post",
+        data:{
+            opcion:"obtener_nombre"
+        },
+        success: function(response){ 
+            var data = JSON.parse(response);
+            
+            data.forEach(function(objeto){
+                
+                $("#usuario_editar").append(`<option class= "opcionNombre" value="${objeto.folio}">${objeto.nombre}</option>`)
+                
+            });     
+    
+        
+        },
+        error: function(error){ 
+            console.error(error);
+        }
+    });
+
+    $.ajax({
+    
+        url: "../../api.php",
+        type: "post",
+        data:{
+            opcion:"obtener_descripcion"
+        },
+        success: function(response){ 
+            var data = JSON.parse(response);
+            
+            data.forEach(function(objeto){
+                
+                $("#grupo_editar").append(`<option class= "opcionDescripcion" value="${objeto.codigo}">${objeto.descripcion}</option>`)
+                
+            });     
+    
+        
+        },
+        error: function(error){ 
+            console.error(error);
+        }
+    });
     
 }
 
-function editar(id,nombre,usuario,clave){
+function editar(id,descripcion,usuario){
     $.ajax({
         url:"../../api.php",
         type:"POST",
         data:{
             folio:id,
-            name:nombre,
+            descripcion:descripcion,
             user:usuario,
-            pass:clave,
-            opcion:"editar"
+            opcion:"editarPerfil"
         },
         success:function(datos){
             console.log(datos);
             if(datos==1){
-                alert("Usuario #"+id+" ha sido editado correctamente.");
-                location.reload();
-                //window.location.href="../../index.php";
+                alert("Perfil #"+id+" ha sido editado correctamente.");
+                //location.reload();
+                window.location.href="../../index.php";
             }else{
-                alert("Error al editar usuario. Favor de intentar nuevamente");
+                alert("Error al editar el perfil. Favor de intentar nuevamente");
             }
         }
     })

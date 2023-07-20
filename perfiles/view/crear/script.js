@@ -1,13 +1,44 @@
+var folio;
+var codigo;
+
 $.ajax({
     
     url: "../../api.php",
     type: "post",
     data:{
-        opcion:"mostrar2"
+        opcion:"obtener_nombre"
     },
     success: function(response){ 
         var data = JSON.parse(response);  
-        console.log(data);
+        
+        data.forEach(function(objeto){
+            
+            $("#nombresComboBox").append(`<option class="opcionNombre" value="${objeto.folio} ">${objeto.nombre}</option>`)
+
+        });     
+
+    
+    },
+    error: function(error){ 
+        console.error(error);
+    }
+});
+
+$.ajax({
+    
+    url: "../../api.php",
+    type: "post",
+    data:{
+        opcion:"obtener_descripcion"
+    },
+    success: function(response){ 
+        var data = JSON.parse(response);
+        
+        data.forEach(function(objeto){
+            
+            $("#descripcionesComboBox").append(`<option class= "opcionDescripcion" value="${objeto.codigo}">${objeto.descripcion}</option>`)
+            
+        });     
 
     
     },
@@ -17,28 +48,31 @@ $.ajax({
 });
 
 
-
 $(".btncrear").click(function(){
-    var nombre = document.getElementById("nombre").value;
-    var usuario = document.getElementById("usuario").value;
-    var clave = document.getElementById("clave").value;
     
+        var comboBoxNombre = document.getElementById("nombresComboBox");
+        
+        var folio = comboBoxNombre.value;
+
+        var comboBoxDescripcion= document.getElementById("descripcionesComboBox");
+        
+        var codigo = comboBoxDescripcion.value;
+        
 
     $.ajax({
         url:"../../api.php",
         type:"POST",
         data: {
-            name: nombre,
-            user: usuario,
-            pass: clave,
-            opcion: "registrar"
+            folioUser: folio,
+            codigoDesc: codigo,
+            opcion: "crear_perfil"
         },
         success: function(datos){
             if(datos==1){
-                alert("¡Usuario registrado exitosamente!");
+                alert("Perfil creado exitosamente!");
                 window.location.href = "../../index.php";
             }else{
-                alert("Error al realizar registro");
+                alert("Error al crear perfil");
             }
         }
 

@@ -5,7 +5,7 @@ if(isset($_POST['opcion'])){
   $opcion = $_POST['opcion'];
   
   if($opcion==="mostrar"){
-  $sql="SELECT * from sis_usuario ORDER BY folio DESC LIMIT 10";
+  $sql="SELECT * from sis_usuario ORDER BY folio LIMIT 10";
   $result=mysqli_query($conexion,$sql);
 
   $arreglo=[];

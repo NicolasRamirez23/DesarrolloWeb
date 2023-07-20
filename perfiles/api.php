@@ -4,9 +4,16 @@
 if(isset($_POST['opcion'])){
   $opcion = $_POST['opcion'];
 
-  if($opcion==="mostrar"){
-    $sql="SELECT * from sis_usuario ORDER BY folio DESC LIMIT 10";
-    $result=mysqli_query($conexion,$sql);
+  if($opcion==="mostrarPerfiles"){
+
+    $sqlPerfiles="SELECT sis_perfil.folio, sis_perfil.fecha, sis_perfil.hora, sis_usuario.nombre, cat_grupo.descripcion, sis_perfil.activo
+    from sis_perfil  
+    LEFT JOIN sis_usuario ON sis_perfil.usuario = sis_usuario.folio 
+    LEFT JOIN cat_grupo ON sis_perfil.grupo = cat_grupo.codigo
+    ORDER BY sis_perfil.folio DESC LIMIT 10";
+   
+
+    $result=mysqli_query($conexion,$sqlPerfiles);
   
     $arreglo=[];
   
@@ -23,54 +30,64 @@ if(isset($_POST['opcion'])){
     print_r($arregloLleno);
     }
   
-  if($opcion==="mostrar2"){
-  $sql="SELECT nombre from sis_usuario ORDER BY folio";
-  $result=mysqli_query($conexion,$sql);
-
-  $arreglo=[];
-
-  $sql2="SELECT descripcion from cat_grupo ORDER BY codigo";
-  $result2=mysqli_query($conexion,$sql2);
-
-  $arreglo2=[];
-
-
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      $arreglo[]=$row;
+    if($opcion==="obtener_nombre"){
+      $sql="SELECT nombre,folio from sis_usuario ORDER BY folio";
+      $result=mysqli_query($conexion,$sql);
+    
+      $arreglo=[];
+    
+    
+      if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          $arreglo[]=$row;
+        }
+      }
       
-    }
-    while($row2 = $result2->fetch_assoc()){
-      $arreglo2[]=$row2;
-    }
-  } 
-  
-  $arregloLleno = array_merge($arreglo,$arreglo2);
-  $arregloLleno = json_encode($arregloLleno);
-  
-  echo($arregloLleno);
-  }
+      $arregloLleno = json_encode($arreglo);
+      
+      echo($arregloLleno);
+      }
+
+      if($opcion==="obtener_descripcion"){
+        $sql="SELECT descripcion, codigo from cat_grupo ORDER BY codigo";
+        $result=mysqli_query($conexion,$sql);
+      
+        $arreglo=[];
+      
+      
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+            $arreglo[]=$row;
+          }
+        }
+        
+        $arregloLleno = json_encode($arreglo);
+        
+        echo($arregloLleno);
+        }
 
 
-  if($opcion === "crear"){
-    $nombre = $_POST["name"];
-    $usuario = $_POST["user"];
-    $clave = $_POST["pass"];
+  if($opcion === "crear_perfil"){
+    $folio = $_POST["folioUser"];
+    $codigo = $_POST["codigoDesc"];
 
     $fecha_actual = date("d-m-y");
     $hora_actual = date("h:i:s");
 
-    $sql = $conexion -> query("insert into sis_usuario (fecha,hora,nombre,usuario,contrasena,activo) 
-    values('$fecha_actual','$hora_actual','$nombre','$usuario','$clave','1')");
+    $sql = $conexion -> query("insert into sis_perfil (fecha,hora,usuario,grupo) 
+    VALUES ('$fecha_actual','$hora_actual','$folio','$codigo')");
+
+  
 
     echo(1);
 
 }
 
-if($opcion==="eliminar"){
+if($opcion==="eliminarPerfil"){
   $folio = $_POST["folio"];
-  $sql = "UPDATE sis_usuario SET activo = '0' where folio = $folio";
+  $sql = "UPDATE  sis_perfil SET activo = 0 WHERE folio=$folio";
   if($conexion->query($sql)===TRUE){
     echo(2);
   }else{
@@ -79,9 +96,9 @@ if($opcion==="eliminar"){
   $conexion->close();
 }
 
-if($opcion==="buscar"){
+if($opcion==="buscarPerfil"){
   $folio = $_POST["folio"];
-  $sql = "SELECT fecha,hora,nombre,usuario,contrasena from sis_usuario where folio=$folio";
+  $sql = "SELECT fecha,hora,usuario,grupo from sis_perfil where folio=$folio";
 
   $result=mysqli_query($conexion,$sql);
 
@@ -93,13 +110,11 @@ if($opcion==="buscar"){
   print_r($row);
 }
 
-if($opcion==="editar"){
+if($opcion==="editarPerfil"){
   $folio=$_POST['folio'];
-  $nombre=$_POST['name'];
+  $descripcion=$_POST['descripcion'];
   $usuario=$_POST['user'];
-  $clave = $_POST['pass'];
-
-  $sql = $conexion -> query("UPDATE sis_usuario SET nombre = '$nombre', usuario = '$usuario', contrasena = '$clave' where folio = $folio");
+  $sql = $conexion -> query("UPDATE sis_perfil SET usuario = '$usuario', grupo = '$descripcion' where folio = $folio");
   echo(1);
 }
 

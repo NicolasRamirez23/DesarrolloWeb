@@ -35,9 +35,9 @@ if(isset($_POST['opcion'])){
         
         }
         
-        if($opcion==="eliminar"){
+        if($opcion==="eliminar_grupo"){
           $folio = $_POST["folio"];
-          $sql = "DELETE FROM cat_grupo where codigo = $folio";
+          $sql = "UPDATE cat_grupo SET activo = 0 where codigo = $folio";
           if($conexion->query($sql)===TRUE){
             echo(2);
           }else{

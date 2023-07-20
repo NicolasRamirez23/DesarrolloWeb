@@ -18,17 +18,13 @@
         <label for="usuario">Usuario</label>
         <br>
 
-        <select name="usuario" id = "usuario" multiple>
-
-        </select>
+        <select name="usuario" id = "nombresComboBox"></select>
         
         <br><br>
 
         <label for="grupo">Grupo</label>
         <br>
-        <select name="grupo" id = "grupo" multiple>
-
-        </select>
+        <select name="grupo" id = "descripcionesComboBox"></select>
 
         <br><br>
 

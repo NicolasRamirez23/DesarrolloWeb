@@ -8,3 +8,11 @@
     Funcionamiento de inicio sesion y cierre sesion. Uso de sessions en funcionamiento igualmente.
 12-julio-2023
     Funcionamiento de module eliminar y editar
+
+19-julio-Mejorar diseño de la pagina y realizar las consultas dadas en un archivo.
+    1-Total de perfiles x usuario   
+        SELECT sis_usuario.folio, COUNT(sis_perfil.folio) AS total_perfiles
+        FROM sis_usuario
+        LEFT JOIN sis_perfil ON sis_usuario.folio = sis_perfil.usuario
+        GROUP BY sis_usuario.folio;
+    2-

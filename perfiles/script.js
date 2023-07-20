@@ -5,6 +5,7 @@ $("#data").append(
         <td>Hora</td>
         <td>Usuario</td>
         <td>Grupo</td>
+        <td>Activo</td>
         <td>Editar</td>
         <td>Eliminar</td>
     </tr>`
@@ -15,11 +16,11 @@ $.ajax({
     url: "api.php",
     type: "post",
     data:{
-        opcion:"mostrar"
+        opcion:"mostrarPerfiles"
     },
     success: function(response){ 
         
-        var data = JSON.parse(response); 
+        var data = JSON.parse(response);
         
         
         data.forEach(function(objeto){
@@ -28,8 +29,9 @@ $.ajax({
             <td>${objeto.folio}</td>
             <td>${objeto.fecha}</td>
             <td>${objeto.hora}</td>
-            <td>${objeto.usuario}</td>
-            <td>${objeto.grupo}</td>
+            <td>${objeto.nombre}</td>
+            <td>${objeto.descripcion}</td>
+            <td>${objeto.activo}</td>
             <td><button type="boton" class="btn-editar" id=editar${objeto.folio} data-folio="${objeto.folio}">Editar</button></td>
             <td><button type="boton" class="btn-eliminar" id=elimnar${objeto.folio} data-folio="${objeto.folio}">Eliminar</button></td>
             </tr>`)
@@ -45,14 +47,14 @@ $.ajax({
 
 $('body').on('click', '.btn-eliminar', function(){
 
-    var idUsuario = $(this).data('folio');
-    eliminar(idUsuario);
+    var idfolio = $(this).data('folio');
+    eliminar(idfolio);
  
 });
 
 $('body').on('click', '.btn-editar', function(){
-    var idUsuario = $(this).data('folio');
-    window.location.href = "view/editar/editar.php?id="+encodeURIComponent(idUsuario);
+    var folioPerfil = $(this).data('folio');
+    window.location.href = "view/editar/editar.php?id="+encodeURIComponent(folioPerfil);
     
 });
 
@@ -74,15 +76,15 @@ function eliminar(id){
         url:"api.php",
         type:"POST",
         data: {
-            opcion:"eliminar",
+            opcion:"eliminarPerfil",
             folio: id
         },
         success: function(datos){   
             if(datos==2){
-                alert("Usuario #"+id+" eliminado correctamente");
+                alert("Perfil #"+id+" eliminado correctamente");
                 window.location.href = "index.php";
             }if(datos==3){
-                alert("Error al eliminar usuario");
+                alert("Error al eliminar perfil");
             }
         }
 })

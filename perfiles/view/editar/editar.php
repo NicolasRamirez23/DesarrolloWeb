@@ -14,34 +14,31 @@
 <h1>Editar Usuario</h1>
 
 <div class="editar">
-    <label for="folioeditar">ID del usuario</label>
+    <label for="folio">Folio del Perfil</label>
     <br>
-    <input type="text" name="folio-editar" id="folio-editar" readonly></input>
+    <input type="text" name="folio" id="folio" readonly></input>
     <br><br>
 
-    <label for="fecha-editar">Fecha de Creacion </label>
+    <label for="fecha_editar">Fecha de Creacion </label>
     <br>
-    <input type="text" name="fecha-editar" id="fecha-editar" readonly></input>
+    <input type="text" name="fecha_editar" id="fecha_editar" readonly></input>
     <br><br>
 
-    <label for="hora-editar">Hora de Creacion</label>
+    <label for="hora_editar">Hora de Creacion</label>
     <br>
-    <input type="text" name="hora-editar" id="hora-editar" readonly></input>
+    <input type="text" name="hora_editar" id="hora_editar" readonly></input>
     <br><br>
 
-    <label for="nombreeditar">Nombre</label>
+    <label for="usuario_editar">Usuario</label>
     <br>
-    <input type="text" name="nombreeditar" id="nombreeditar"></input>
+    <select name="usuario_editar" id="usuario_editar"></select>
     <br><br>
 
-    <label for="usuarioeditar">Usuario</label>
+    <label for="grupo_editar">Grupo</label>
     <br>
-    <input type="text" name="usuarioeditar" id="usuarioeditar"></input>
+    <select name="grupo_editar" id="grupo_editar"></select>
     <br><br>
 
-    <label for="passeditar">Contraseña</label>
-    <br>
-    <input type="password" name="passeditar" id="passeditar"></input>
     <br><br>
 
     <button class="btn-actualizar" type="boton" name="btn-actualizar">Actualizar</button>
