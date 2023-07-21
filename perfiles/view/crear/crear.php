@@ -9,6 +9,8 @@
 <!DOCTYPE html>
 <head>
     <title>Crear Perfil</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -23,9 +25,11 @@
         <br><br>
 
         <label for="grupo">Grupo</label>
-        <br>
-        <select name="grupo" id = "descripcionesComboBox"></select>
+    
 
+        <br><br>
+
+        <button class="btn_agregar_grupo" type="boton" name="btn_agregar_grupo">Agregar Grupo</button>
         <br><br>
 
         <div class="contenedor">

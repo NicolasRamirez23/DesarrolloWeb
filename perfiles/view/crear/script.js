@@ -1,6 +1,12 @@
 var folio;
 var codigo;
 
+$("#data").append(
+    `<tr>
+        <td>Grupo</td>
+    </tr>`
+    )
+
 $.ajax({
     
     url: "../../api.php",
@@ -24,59 +30,62 @@ $.ajax({
     }
 });
 
-$.ajax({
+
+let contador = 0;
+
+$(".btn_agregar_grupo").click(function(){
+    $("#data").append(`<tr>
+                        <td><select name="grupo_combobox${contador}" id="grupo_combobox${contador}" class = "descripcionesComboBox"></select></td>`+
+            $.ajax({
     
-    url: "../../api.php",
-    type: "post",
-    data:{
-        opcion:"obtener_descripcion"
-    },
-    success: function(response){ 
-        var data = JSON.parse(response);
-        
-        data.forEach(function(objeto){
+                url: "../../api.php",
+                type: "post",
+                data:{
+                    opcion:"obtener_descripcion"
+                },
+                success: function(response){ 
+                    var data = JSON.parse(response);
+                    
+
+                    data.forEach(function(objeto){
+                        
+                        $(".descripcionesComboBox").append(`<option class= "opcionDescripcion" 
+                        id="descripcion${contador}" value="${objeto.codigo}">${objeto.descripcion}</option>`)
+                    })    
+
             
-            $("#descripcionesComboBox").append(`<option class= "opcionDescripcion" value="${objeto.codigo}">${objeto.descripcion}</option>`)
-            
-        });     
+                },
+                error: function(error){ 
+                    console.error(error);
+                }
+            })
+    +`</tr>`) 
+    contador++;
+    console.log(contador);
+})
 
     
-    },
-    error: function(error){ 
-        console.error(error);
-    }
-});
 
 
 $(".btncrear").click(function(){
+    
+        let valores=["hola"];
+        console.log(valores);
     
         var comboBoxNombre = document.getElementById("nombresComboBox");
         
         var folio = comboBoxNombre.value;
 
-        var comboBoxDescripcion= document.getElementById("descripcionesComboBox");
-        
-        var codigo = comboBoxDescripcion.value;
-        
+        for(let i=0;i=contador;i++){
 
-    $.ajax({
-        url:"../../api.php",
-        type:"POST",
-        data: {
-            folioUser: folio,
-            codigoDesc: codigo,
-            opcion: "crear_perfil"
-        },
-        success: function(datos){
-            if(datos==1){
-                alert("Perfil creado exitosamente!");
-                window.location.href = "../../index.php";
-            }else{
-                alert("Error al crear perfil");
-            }
+            var comboBoxDescripcion= document.getElementById("descripcion"+i);
+        
+            console.log(valores);
         }
+        
 
-    })
+        
+
 })
 
 
