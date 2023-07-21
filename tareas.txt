@@ -14,5 +14,38 @@
         SELECT sis_usuario.folio, COUNT(sis_perfil.folio) AS total_perfiles
         FROM sis_usuario
         LEFT JOIN sis_perfil ON sis_usuario.folio = sis_perfil.usuario
-        GROUP BY sis_usuario.folio;
-    2-
+        GROUP BY sis_usuario.folio
+
+    2-Total de perfiles x usuario que tengan perfiles
+        SELECT sis_usuario.folio, COUNT(sis_perfil.folio) AS total_perfiles
+        FROM sis_usuario
+        LEFT JOIN sis_perfil ON sis_usuario.folio = sis_perfil.usuario
+        GROUP BY sis_usuario.folio
+        Having COUNT (sis_perfil.folio) > 0
+    
+    3-Listar todos los usuarios y perfiles con su descripcion(grupo)
+        SELECT sis_usuario.folio, COUNT(sis_perfil.folio) as total_perfiles, cat_grupo.descripcion as grupo
+        FROM sis_usuario
+        LEFT JOIN sis_perfil ON sis_usuario.folio = sis_perfil.usuario
+        LEFT JOIN cat_grupo ON sis_perfil.grupo = cat_grupo.codigo
+        WHERE cat_grupo.descripcion IS NOT NULL and sis_perfil.folio IS NOT NULL
+        GROUP BY sis_usuario.folio, cat_grupo.descripcion
+    
+    4-Total de perfiles
+        SELECT COUNT(sis_perfil.folio) as total_pe  rfiles
+        FROM sis_perfil
+        
+    5-Total de usuarios
+        SELECT COUNT(sis_usuario.folio) as total_usuarios
+        FROM sis_usuario
+    
+    6-Total de usuarios activos
+        SELECT COUNT(sis_usuario.folio) as total_usuarios
+        FROM sis_usuario
+        WHERE sis_usuario.activo > 0
+    
+    7-Total de perfiles x grupo con su descripcion
+        SELECT cat_grupo.descripcion as grupo, COUNT(sis_perfil.folio) as total_perfiles
+        FROM cat_grupo
+        LEFT JOIN sis_perfil on cat_grupo.codigo = sis_perfil.grupo
+        GROUP BY cat_grupo.codigo

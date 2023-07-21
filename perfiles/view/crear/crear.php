@@ -28,6 +28,13 @@
 
         <br><br>
 
+        <div class="contenedor">
+            <table id="data" >
+
+
+            </table>
+        </div>
+
         <button class="btncrear" type="boton" name="botoncrear">Crear</button>
         <br><br>
         <button class="regresar" type="boton" name="regresar">regresar</button>

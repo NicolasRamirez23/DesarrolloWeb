@@ -13,7 +13,7 @@ $.ajax({
         
         data.forEach(function(objeto){
             
-            $("#nombresComboBox").append(`<option class="opcionNombre" value="${objeto.folio} ">${objeto.nombre}</option>`)
+            $("#nombresComboBox").append(`<option class="opcionNombre" value="${objeto.folio}">${objeto.nombre}</option>`)
 
         });     
 
