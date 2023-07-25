@@ -70,18 +70,22 @@ if(isset($_POST['opcion'])){
 
 
   if($opcion === "crear_perfil"){
-    $folio = $_POST["folioUser"];
-    $codigo = $_POST["codigoDesc"];
+    $grupos = $_POST["descripciones"];
+    $folio = $_POST["folio"];
 
     $fecha_actual = date("d-m-y");
     $hora_actual = date("h:i:s");
 
-    $sql = $conexion -> query("insert into sis_perfil (fecha,hora,usuario,grupo) 
-    VALUES ('$fecha_actual','$hora_actual','$folio','$codigo')");
+    foreach ($grupos as $grupo) {
+      $sql = $conexion->query("INSERT INTO sis_perfil (fecha, hora, usuario, grupo, activo) 
+        VALUES ('$fecha_actual', '$hora_actual', '$folio', '$grupo', '1')");
+  }
+  if($sql){
+    echo (1);
+  }else{
+    echo(0);
+  }
 
-  
-
-    echo(1);
 
 }
 

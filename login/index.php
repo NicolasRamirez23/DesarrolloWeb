@@ -1,11 +1,17 @@
-<?php require("../config/config.inc")?>
+<?php require("../config/config.inc");
+  if(isset($_SESSION['usuario'])){
+    $usuario=$_SESSION['usuario'];
+    header("location: ../dashboard/index.php");
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
 
   <title>Login</title>
 
-  <link rel= "stylesheet" href="../css/style.css">
+  <link rel= "stylesheet" href="css/style.css">
   
 
 </head>

@@ -7,7 +7,7 @@
     </div>
   
     <div class="col" id="login2">
-      <img src="../logo.jpg" width="100">
+      <img src="css/complementos/logo.jpg" width="100">
       <br>
       <h1 class="titulo">Bienvenido</h1>
       <br>

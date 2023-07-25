@@ -1,5 +1,5 @@
 body{
-  background-image: url(../naranja.avif);
+  background-image: url(complementos/naranja.avif);
   background-size: cover;
   text-align: center;
   font-weight: lighter;
@@ -19,7 +19,7 @@ body{
 }
 
 #login1{
-  background-image: url(../bg1.jpg);
+  background-image: url(complementos/bg1.jpg);
   background-size: contain;
   columns: 1px;
   width:600px;

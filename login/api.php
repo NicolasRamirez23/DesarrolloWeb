@@ -13,7 +13,9 @@ $filas = mysqli_num_rows($resultado);
 
 if($filas){
     $_SESSION['usuario']=$user;
-    echo  true;
+    echo  "1";
+}else{
+    echo "0";
 }
 
 mysqli_free_result($resultado);

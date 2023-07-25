@@ -30,61 +30,82 @@ $.ajax({
     }
 });
 
+let contador = 0; 
 
-let contador = 0;
 
-$(".btn_agregar_grupo").click(function(){
+$(".btn_agregar_grupo").click(function() {
     $("#data").append(`<tr>
-                        <td><select name="grupo_combobox${contador}" id="grupo_combobox${contador}" class = "descripcionesComboBox"></select></td>`+
-            $.ajax({
-    
-                url: "../../api.php",
-                type: "post",
-                data:{
-                    opcion:"obtener_descripcion"
-                },
-                success: function(response){ 
-                    var data = JSON.parse(response);
+        <td><select name="grupo_combobox${contador}" id="grupo_combobox${contador}" 
+        class="descripcionesComboBox"></select></td>
+    </tr>`);
+
+    $.ajax({
+        url: "../../api.php",
+        type: "post",
+        data: {
+            opcion: "obtener_descripcion"
+        },
+        success: function(response) {
+            var data = JSON.parse(response);
+            var $comboboxes = $(".descripcionesComboBox"); 
+
+            $comboboxes.each(function(index, combobox) {
+                $(combobox).empty();
+                data.forEach(function(objeto) {
+                    $(combobox).append(`<option class="opcionDescripcion" id="descripcion${objeto.codigo}" 
+                    value="${objeto.codigo}">${objeto.descripcion}</option>`);
                     
+                });
+            });
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
 
-                    data.forEach(function(objeto){
-                        
-                        $(".descripcionesComboBox").append(`<option class= "opcionDescripcion" 
-                        id="descripcion${contador}" value="${objeto.codigo}">${objeto.descripcion}</option>`)
-                    })    
-
-            
-                },
-                error: function(error){ 
-                    console.error(error);
-                }
-            })
-    +`</tr>`) 
     contador++;
-    console.log(contador);
-})
+    
+});
 
     
 
 
 $(".btncrear").click(function(){
-    
-        let valores=["hola"];
-        console.log(valores);
-    
-        var comboBoxNombre = document.getElementById("nombresComboBox");
-        
-        var folio = comboBoxNombre.value;
 
-        for(let i=0;i=contador;i++){
-
-            var comboBoxDescripcion= document.getElementById("descripcion"+i);
+    var comboBoxNombre = document.getElementById("nombresComboBox");
         
-            console.log(valores);
+    var folio = comboBoxNombre.value;
+
+    grupos=[];
+    
+    for(let i=0; i<contador;i++){
+        var combobox_grupo = document.getElementById("grupo_combobox"+i);
+        grupos.push(combobox_grupo.value);
+
         }
-        
 
-        
+
+    $.ajax({
+        url:"../../api.php",
+        type: "post",
+        data:{
+            folio: folio,
+            descripciones:grupos,
+            opcion:"crear_perfil"
+        },
+        success: function(response){
+            if(response == "1"){
+                alert("Registro completado correctamente.");
+            }else{
+                alert("Error a realizar registro. Intentar de nuevo.")
+            }
+
+        },
+        error: function(error){
+            console.error(error);
+        }
+    })
+
 
 })
 
@@ -93,3 +114,4 @@ $(".regresar").click(function(){
     window.location.href= "../../index.php";
 
 })
+
