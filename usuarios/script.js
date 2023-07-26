@@ -51,7 +51,11 @@ $('body').on('click', '.btn-eliminar', function(){
  
 });
 
-
+$('body').on('click', '.btn-editar', function(){
+    var idUsuario = $(this).data('folio');
+    window.location.href = "view/editar/editar.php?id="+encodeURIComponent(idUsuario);
+    
+});
 $("#registro").click(function(){
 
     window.location.href = "view/registro/registro.php";

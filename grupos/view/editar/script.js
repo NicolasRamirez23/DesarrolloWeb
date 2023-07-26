@@ -7,14 +7,14 @@ buscar(id);
 
 
 
-$(".btn-actualizar").click(function(){
+$("#btn-actualizar").click(function(){
     var descripcionEditar = document.getElementById("descripcion_editar").value;
 
     editar(id,descripcionEditar);
     
 })
 
-$(".regresar").click(function(){
+$("#regresar").click(function(){
     window.location.href= "../../index.php";
 
 })

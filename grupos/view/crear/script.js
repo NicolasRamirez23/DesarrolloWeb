@@ -1,4 +1,4 @@
-$(".btncrear").click(function(){
+$("#btncrear").click(function(){
     var descripcion = document.getElementById("descripcion").value;
 
     
@@ -23,7 +23,7 @@ $(".btncrear").click(function(){
 })
 
 
-$(".regresar").click(function(){
+$("#regresar").click(function(){
     window.location.href= "../../index.php";
 
 })

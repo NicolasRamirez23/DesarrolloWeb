@@ -8,12 +8,20 @@
 ?>
 <!DOCTYPE html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <title>Edicion de Usuario</title>
 </head>
-<body>
-<h1>Editar Usuario</h1>
+<body style="background-color: #fd7e14;">
 
-<div class="editar">
+<div class="container">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+       <div class="text-center">
+       <div class="editar" style="background-color: #A0FCFF;">
+    <h1>Editar Usuario</h1>
     <label for="folioeditar">ID del usuario</label>
     <br>
     <input type="text" name="folio-editar" id="folio-editar" readonly></input>
@@ -44,11 +52,21 @@
     <input type="password" name="passeditar" id="passeditar"></input>
     <br><br>
 
-    <button class="btn-actualizar" type="boton" name="btn-actualizar">Actualizar</button>
+    <button id="btn-actualizar" class="btn btn-primary" type="boton" name="btn-actualizar">Actualizar</button>
     <br><br>
-    <button class="regresar" type="boton" name="regresar">Regresar</button>
+    <button id="regresar" type="boton" name="regresar" class="btn btn-danger">Regresar</button>
 
 </div>
+            
+        </div>
+       </div>
+    <div class="col">
+      
+    </div>
+  </div>
+</div>
+
+
 </body>
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src= "script.js"></script>

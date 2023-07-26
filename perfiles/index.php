@@ -10,30 +10,41 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
         <title>Perfiles</title>
 
         <link rel= "stylesheet" href="style.css">
     </head>
-    <body>
-        <h1>Tabla de Perfiles</h1>
+    <body style="background-color: #fd7e14;">
 
-        <br>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+        <div class="text-center">
+            <h1>Tabla de Perfiles</h1>
+            <br>
+            <div class="contenedor">
+            <table class="table table-bordered border-primary" 
+                style="background-color: #A0FCFF;" id="data"></table>
+            </div>
 
-        <div class="contenedor">
-            <table id="data" >
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+            <button id="crear" class="btn btn-primary" type="boton" name="crear">Crear</button>
+            <br>
+            <br>
 
 
-            </table>
+            <button id="regresar" type="boton" class="btn btn-danger">Regresar</button>
         </div>
-        
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-        <button id="crear" type="boton" name="crear">Crear</button>
-        <br>
-        <br>
-
-
-        <button id="regresar" type="boton">Regresar</button>
+       </div>
+    <div class="col">
+    </div>
+  </div>
+</div>
 
     </body>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

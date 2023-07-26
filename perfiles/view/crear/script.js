@@ -33,7 +33,7 @@ $.ajax({
 let contador = 0; 
 
 
-$(".btn_agregar_grupo").click(function() {
+$("#btn_agregar_grupo").click(function() {
     $("#data").append(`<tr>
         <td><select name="grupo_combobox${contador}" id="grupo_combobox${contador}" 
         class="descripcionesComboBox"></select></td>
@@ -70,7 +70,7 @@ $(".btn_agregar_grupo").click(function() {
     
 
 
-$(".btncrear").click(function(){
+$("#btncrear").click(function(){
 
     var comboBoxNombre = document.getElementById("nombresComboBox");
         
@@ -110,7 +110,7 @@ $(".btncrear").click(function(){
 })
 
 
-$(".regresar").click(function(){
+$("#regresar").click(function(){
     window.location.href= "../../index.php";
 
 })

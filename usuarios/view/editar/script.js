@@ -5,7 +5,7 @@ buscar(id);
 
 
 
-$(".btn-actualizar").click(function(){
+$("#btn-actualizar").click(function(){
     var nombreEditar = document.getElementById("nombreeditar").value;
     var usuarioEditar = document.getElementById("usuarioeditar").value;
     var claveEditar = document.getElementById("passeditar").value;
@@ -14,7 +14,7 @@ $(".btn-actualizar").click(function(){
     
 })
 
-$(".regresar").click(function(){
+$("#regresar").click(function(){
     window.location.href= "../../index.php";
 
 })

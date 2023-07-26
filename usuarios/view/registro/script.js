@@ -1,4 +1,4 @@
-$(".btncrear").click(function(){
+$("#btncrear").click(function(){
     var nombre = document.getElementById("nombre").value;
     var usuario = document.getElementById("usuario").value;
     var clave = document.getElementById("clave").value;
@@ -26,7 +26,7 @@ $(".btncrear").click(function(){
 })
 
 
-$(".regresar").click(function(){
+$("#btnregresar").click(function(){
     window.location.href= "../../index.php";
 
 })
