@@ -45,8 +45,11 @@
 
                 <div class="contenedor">
                     <table class="table table-bordered border-primary" 
-                    style="background-color: #A0FCFF;" id="data"></table>
+                    style="background-color: #A0FCFF;" id="data">
+                    
+                </table>
                 </div>
+                <br><br><br><br><br><br><br><br>
 
                 <button id="btncrear" class="btn btn-primary" type="boton" name="botoncrear">Crear</button>
                 <br><br>

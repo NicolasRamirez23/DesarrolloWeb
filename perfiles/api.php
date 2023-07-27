@@ -6,11 +6,11 @@ if(isset($_POST['opcion'])){
 
   if($opcion==="mostrarPerfiles"){
 
-    $sqlPerfiles="SELECT sis_perfil.folio, sis_perfil.fecha, sis_perfil.hora, sis_usuario.nombre, cat_grupo.descripcion, sis_perfil.activo
-    from sis_perfil  
-    LEFT JOIN sis_usuario ON sis_perfil.usuario = sis_usuario.folio 
-    LEFT JOIN cat_grupo ON sis_perfil.grupo = cat_grupo.codigo
-    ORDER BY sis_perfil.folio DESC LIMIT 10";
+    $sqlPerfiles="SELECT sis_usuario.folio,sis_usuario.nombre, COUNT(sis_perfil.folio) AS total_perfiles
+    FROM sis_usuario
+    LEFT JOIN sis_perfil ON sis_usuario.folio = sis_perfil.usuario
+    GROUP BY sis_usuario.folio
+    ORDER BY sis_usuario.folio LIMIT 10";
    
 
     $result=mysqli_query($conexion,$sqlPerfiles);
@@ -31,7 +31,11 @@ if(isset($_POST['opcion'])){
     }
   
     if($opcion==="obtener_nombre"){
-      $sql="SELECT nombre,folio from sis_usuario ORDER BY folio";
+      $sql="SELECT sis_usuario.nombre,sis_usuario.folio, count(sis_perfil.folio) as total_perfiles
+      from sis_usuario
+      left join sis_perfil on sis_usuario.folio = sis_perfil.usuario
+      group by (sis_usuario.folio)
+      having (total_perfiles)<1";
       $result=mysqli_query($conexion,$sql);
     
       $arreglo=[];
