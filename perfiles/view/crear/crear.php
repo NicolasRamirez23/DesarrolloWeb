@@ -51,9 +51,9 @@
                 </div>
                 <br><br><br><br><br><br><br><br>
 
-                <button id="btncrear" class="btn btn-primary" type="boton" name="botoncrear">Crear</button>
+                <button id="btn_crear" class="btn btn-primary" type="boton" name="botoncrear">Crear</button>
                 <br><br>
-                <button id="regresar" class="btn btn-danger" type="boton" name="regresar">regresar</button>
+                <button id="btn_regresar" class="btn btn-danger" type="boton" name="regresar">regresar</button>
             </div>
 
         </div>

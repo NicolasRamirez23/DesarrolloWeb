@@ -4,9 +4,7 @@ document.getElementById("folio").value=folio;
 buscar(folio);
 
 
-
 $(".btn-actualizar").click(function(){
-    console.log("hola");
     var comboBoxNombre = document.getElementById("usuario_editar");
 
     var usuario = comboBoxNombre.value;
@@ -32,9 +30,10 @@ function buscar(id){
         type:"POST",
         data:{
             folio:id,
-            opcion:"buscarPerfil"
+            opcion:"buscarUsuario"
         },success:function(response){
             var datos = JSON.parse(response);
+            console.log(datos);
             
             document.getElementById("fecha_editar").value = datos.fecha;
             document.getElementById("hora_editar").value = datos.hora;

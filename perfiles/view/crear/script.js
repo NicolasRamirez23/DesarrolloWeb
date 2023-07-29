@@ -1,5 +1,4 @@
-var folio;
-var codigo;
+var grupos=[];
 
 $("#data").append(
     `<tr>
@@ -9,7 +8,7 @@ $("#data").append(
     )
 
 $.ajax({
-    
+
     url: "../../api.php",
     type: "post",
     data:{
@@ -21,6 +20,7 @@ $.ajax({
         data.forEach(function(objeto){
             
             $("#nombresComboBox").append(`<option class="opcionNombre" value="${objeto.folio}">${objeto.nombre}</option>`)
+        
 
         });     
 
@@ -29,26 +29,51 @@ $.ajax({
     error: function(error){ 
         console.error(error);
     }
-});
+}); 
 
+$.ajax({
+    url: "../../api.php",
+    type: "post",
+    data:{
+        opcion:"obtener_descripcion"
+    },
+    success: function(response){ 
+        var data = JSON.parse(response);  
 
+        $("#data").append(
+            `<tr>
+                <td><select class="descripcionesComboBox"></select></td>
+                <td><button type="boton" class="btn_eliminar">Eliminar</button></td>
+            </tr>`
+            )
 
-let contador=0    
+            $(".descripcionesComboBox").append('<option value="0">---Seleccione una opción---</option>');
+        
+        data.forEach(function(objeto){
+            
+            $(".descripcionesComboBox").append(`<option value="${objeto.codigo}" name="opcion${objeto.codigo}" id="opcion${objeto.codigo}" 
+            class="opciones">${objeto.descripcion}</option>`);
+            });
+        
+    },
+    error: function(error){ 
+        console.error(error);
+    }
+}); 
 
 $("#btn_agregar_grupo").click(function() {
 
-    $("#data").append(`<tr>
-        <td><select name="grupo_combobox${contador}" id="grupo_combobox${contador}" 
-        class="descripcionesComboBox"></select></td>
-        <td><button type="boton" class="btn-eliminar" id=${contador} data-contador="${contador}"">Eliminar</button></td>
-    </tr>`);
-
-    let grupos=[];
-    for(let i=0; i<contador;i++){
-        var combobox_grupo = document.getElementById("grupo_combobox"+i);
-        grupos.push(combobox_grupo.value);
+    var comboBox = $(".descripcionesComboBox:last");
+   
+    if (comboBox.val() === "0") {
+        alert("Debe seleccionar una opción antes de agregar otro elemento.");
+        return; 
     }
-    console.log(grupos);
+
+    $("#data").append(`<tr>
+        <td><select class="descripcionesComboBox"></select></td>
+        <td><button type="boton" class="btn_eliminar">Eliminar</button></td>
+    </tr>`)
 
     $.ajax({
         url: "../../api.php",
@@ -58,91 +83,80 @@ $("#btn_agregar_grupo").click(function() {
         },
         success: function(response) {
             var data = JSON.parse(response);
-            var $comboboxes = $(".descripcionesComboBox"); 
-            $comboboxes.each(function(index, combobox) {
-                $(combobox).empty();    
-                data.forEach(function(objeto) {
-                
-                    if(!grupos.includes(objeto.codigo)){
-                        $(combobox).append(`<option class="opcionDescripcion" id="descripcion${objeto.codigo}" 
-                        value="${objeto.codigo}">${objeto.descripcion}</option>`)
-                    }
-            });
-                    
-                
-                
+            var comboBox = $(".descripcionesComboBox:last");
+            var elem_sel = [];
+
+            comboBox.append('<option value="0">---Seleccione una opción---</option>');
+
+            $(".descripcionesComboBox").each(function(){
+                var valor_seleccionado = $(this).val();
+                if(valor_seleccionado!=0){
+                    elem_sel.push(valor_seleccionado);
+                }  
+            })
+            console.log(elem_sel);
+    
+            data.forEach(function(objeto) {
+                if (!elem_sel.includes(objeto.codigo)) {
+                    comboBox.append(`<option value="${objeto.codigo}" id=${objeto.codigo} class="opciones">${objeto.descripcion}</option>`);
+                }
             });
         },
         error: function(error) {
             console.error(error);
         }
     });
-
-    contador++;
-    
 });
 
-$('body').on('click', '.btn-eliminar', function(){
-    const tabla = document.getElementById("data");
-    let longitudFilas = tabla.rows.length;
+$('body').on('click', '.btn_eliminar', function(){
+    const longitudTabla = $('#data tr').length;
 
-    
-    if(longitudFilas==2){
-        alert("Debes elegir al menos un grupo.");
+    if(longitudTabla == 2){
+        alert("El usuario debe pertenecer a un grupo");
     }else{
-        var fila=this.closest("tr");
-
-        fila.remove();
-    
+        $(this).closest('tr').remove();
     }
-
- 
 });
+
+$("#btn_crear").click(function(){
+    var codigos = [];
+    $(".descripcionesComboBox").each(function(){
+        var valor_seleccionado = $(this).val();
+        if (valor_seleccionado !== "0") {
+            codigos.push(valor_seleccionado);
+        }
+    })
+
+    var folio = $("#nombresComboBox").val();
     
-
-
-$("#btncrear").click(function(){
-
-    var comboBoxNombre = document.getElementById("nombresComboBox");
-        
-    var folio = comboBoxNombre.value;
-
-    grupos=[];
-    
-    for(let i=0; i<contador;i++){
-        var combobox_grupo = document.getElementById("grupo_combobox"+i);
-        grupos.push(combobox_grupo.value);
-    }
-
-
+    console.log(folio + "---"+codigos);
     $.ajax({
         url:"../../api.php",
-        type: "post",
+        type:"post",
         data:{
-            folio: folio,
-            descripciones:grupos,
-            opcion:"crear_perfil"
-        },
-        success: function(response){
-            if(response == "1"){
+            codigos : codigos,
+            folio : folio,
+            opcion : "crear_perfil"
+        },success: function(response){
+            if(response==1){
                 alert("Registro completado correctamente.");
                 location.reload();
             }else{
-                alert("Error a realizar registro. Intentar de nuevo.")
+                alert("Fallo al registrar, intentar de nuevo.")
             }
 
-        },
-        error: function(error){
+        },error: function(error){
             console.error(error);
         }
     })
 
-
 })
 
-
-$("#regresar").click(function(){
+$("#btn_regresar").click(function(){
     window.location.href= "../../index.php";
-
 })
+
+
+
+
 

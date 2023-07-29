@@ -4,9 +4,6 @@ document.getElementById("codigo_editar").value=id;
 
 buscar(id);
 
-
-
-
 $("#btn-actualizar").click(function(){
     var descripcionEditar = document.getElementById("descripcion_editar").value;
 
@@ -51,7 +48,7 @@ function editar(id,descripcion){
         data:{
             folio:id,
             descripcion:descripcion,
-            opcion:"editar"
+            opcion:"editar_perfil"
         },
         success:function(datos){
             
