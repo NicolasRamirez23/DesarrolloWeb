@@ -26,10 +26,10 @@
             <h1>Creacion de Perfiles</h1>
 
             <div class="formulario">
-                <label for="usuario">Usuario</label>
+                <label for="nombre">Nombre</label>
                 <br>
 
-                <select name="usuario" class="btn-group-vertical" style="background-color: #A0FCFF;"
+                <select name="nombre" class="btn-group-vertical" style="background-color: #A0FCFF;"
                  id = "nombresComboBox"></select>
                 
                 <br><br>
@@ -47,7 +47,7 @@
                     <table class="table table-bordered border-primary" 
                     style="background-color: #A0FCFF;" id="data">
                     
-                </table>
+                    </table>
                 </div>
                 <br><br><br><br><br><br><br><br>
 

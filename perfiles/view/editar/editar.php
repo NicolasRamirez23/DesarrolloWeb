@@ -10,7 +10,7 @@
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   
-    <title>Edicion de Usuario</title>
+    <title>Edicion de Perfiles</title>
 </head>
 <body  style="background-color: #fd7e14;">
 
@@ -21,10 +21,10 @@
     <div class="col">
        
        <div class="text-center" >
-          <h1>Editar Usuario</h1>
+          <h1>Editar perfiles de usuario</h1>
 
             <div class="editar">
-                <label for="folio">Folio del Perfil</label>
+                <label for="folio">Folio del Usuario</label>
                 <br>
                 <input type="text" name="folio" id="folio" readonly></input>
                 <br><br>
@@ -39,15 +39,18 @@
                 <input type="text" name="hora_editar" id="hora_editar" readonly></input>
                 <br><br>
 
-                <label for="usuario_editar">Usuario</label>
+                <label for="usuario_editar">Nombre</label>
                 <br>
-                <select name="usuario_editar" class= "usuarioeditar" id="usuario_editar"></select>
+                <input type="usuario_editar" name="usuario_editar" id="usuario_editar" readonly></input>
                 <br><br>
 
-                <label for="grupo_editar">Grupo</label>
-                <br>
-                <select name="grupo_editar" id="grupo_editar"></select>
-                <br><br>
+                <div class="contenedor">
+                    <table class="table table-bordered border-primary" 
+                    style="background-color: #A0FCFF;" id="data">
+                    
+                    </table>
+                </div>
+                <br><br><br><br><br><br><br><br>
 
                 <br><br>
 

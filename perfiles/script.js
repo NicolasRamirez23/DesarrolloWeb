@@ -13,7 +13,7 @@ $.ajax({
     url: "api.php",
     type: "post",
     data:{
-        opcion:"mostrarPerfiles"
+        opcion:"buscarUsuario"
     },
     success: function(response){ 
         
@@ -23,8 +23,8 @@ $.ajax({
         data.forEach(function(objeto){
 
             $("#data").append(`<tr>
-            <td>${objeto.folio}</td>
-            <td>${objeto.nombre}</td>
+            <td>${objeto.folio_u}</td>
+            <td>${objeto.nombre_u}</td>
             <td>${objeto.total_perfiles}</td>
             <td><button type="boton" class="btn-editar" id=editar${objeto.folio} data-folio="${objeto.folio}">Editar</button></td>
             <td><button type="boton" class="btn-eliminar" id=elimnar${objeto.folio} data-folio="${objeto.folio}">Eliminar</button></td>
