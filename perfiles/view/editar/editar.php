@@ -44,17 +44,26 @@
                 <input type="usuario_editar" name="usuario_editar" id="usuario_editar" readonly></input>
                 <br><br>
 
-                <div class="contenedor">
+
+                <div class="contenedor_combobox">
+                    <label>Grupo ingresados actualmente</label>
                     <table class="table table-bordered border-primary" 
-                    style="background-color: #A0FCFF;" id="data">
-                    
+                            style="background-color: #A0FCFF;" id="data">
+                    </table>
+                    <br><br>
+
+                    <button class="btn_agregar_grupo">Agregar a grupo</button>
+                    <br><br>
+
+                    <label>Agregar a nuevo grupo</label>
+                    <table class="table table-bordered border-primary" 
+                            style="background-color: #A0FCFF;" id="data_agregar">
                     </table>
                 </div>
-                <br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br>
 
-                <br><br>
-
-                <button class="btn-actualizar" type="boton" name="btn-actualizar">Actualizar</button>
+                
+                <button class="btn_actualizar" type="boton" name="btn-actualizar">Actualizar</button>
                 <br><br>
                 <button class="regresar" type="boton" name="regresar">Regresar</button>
 

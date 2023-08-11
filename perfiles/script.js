@@ -2,7 +2,7 @@ $("#data").append(
     `<tr>
         <td>Folio</td>
         <td>Usuario</td>
-        <td>Perfiles</td>
+        <td># Perfiles</td>
         <td>Editar</td>
         <td>Eliminar</td>
     </tr>`
@@ -13,7 +13,7 @@ $.ajax({
     url: "api.php",
     type: "post",
     data:{
-        opcion:"buscarUsuario"
+        opcion:"mostrarPerfiles"
     },
     success: function(response){ 
         
@@ -23,8 +23,8 @@ $.ajax({
         data.forEach(function(objeto){
 
             $("#data").append(`<tr>
-            <td>${objeto.folio_u}</td>
-            <td>${objeto.nombre_u}</td>
+            <td>${objeto.folio}</td>
+            <td>${objeto.nombre}</td>
             <td>${objeto.total_perfiles}</td>
             <td><button type="boton" class="btn-editar" id=editar${objeto.folio} data-folio="${objeto.folio}">Editar</button></td>
             <td><button type="boton" class="btn-eliminar" id=elimnar${objeto.folio} data-folio="${objeto.folio}">Eliminar</button></td>
@@ -70,12 +70,12 @@ function eliminar(id){
         url:"api.php",
         type:"POST",
         data: {
-            opcion:"eliminarPerfil",
+            opcion:"eliminar_perfil",
             folio: id
         },
         success: function(datos){   
             if(datos==2){
-                alert("Perfil #"+id+" eliminado correctamente");
+                alert("Perfiles de usuario #"+id+" eliminado correctamente");
                 window.location.href = "index.php";
             }if(datos==3){
                 alert("Error al eliminar perfil");

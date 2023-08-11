@@ -2,6 +2,7 @@ var grupos=[];
 
 $("#data").append(
     `<tr>
+        <td>#</td>
         <td>Grupo</td>
         <td>Eliminar</td>
     </tr>`
@@ -42,6 +43,7 @@ $.ajax({
 
         $("#data").append(
             `<tr>
+                <td class="num">1</td>
                 <td><select class="descripcionesComboBox"></select></td>
                 <td><button type="boton" class="btn_eliminar">Eliminar</button></td>
             </tr>`
@@ -62,6 +64,7 @@ $.ajax({
 }); 
 
 $("#btn_agregar_grupo").click(function() {
+    var cont = 0;  
 
     var comboBox = $(".descripcionesComboBox:last");
    
@@ -69,11 +72,18 @@ $("#btn_agregar_grupo").click(function() {
         alert("Debe seleccionar una opción antes de agregar otro elemento.");
         return; 
     }
-
+    
     $("#data").append(`<tr>
+        <td class="num"></td>
         <td><select class="descripcionesComboBox"></select></td>
         <td><button type="boton" class="btn_eliminar">Eliminar</button></td>
     </tr>`)
+
+    cont++;
+
+    $(".num").each(function(index,elemento){
+        $(elemento).text(cont++);
+    });
 
     $.ajax({
         url: "../../api.php",
@@ -94,8 +104,7 @@ $("#btn_agregar_grupo").click(function() {
                     elem_sel.push(valor_seleccionado);
                 }  
             })
-            console.log(elem_sel);
-    
+            
             data.forEach(function(objeto) {
                 if (!elem_sel.includes(objeto.codigo)) {
                     comboBox.append(`<option value="${objeto.codigo}" id=${objeto.codigo} class="opciones">${objeto.descripcion}</option>`);
@@ -105,7 +114,9 @@ $("#btn_agregar_grupo").click(function() {
         error: function(error) {
             console.error(error);
         }
+        
     });
+    cont++;
 });
 
 $('body').on('click', '.btn_eliminar', function(){
@@ -116,6 +127,13 @@ $('body').on('click', '.btn_eliminar', function(){
     }else{
         $(this).closest('tr').remove();
     }
+
+    contador=1;
+    $('.num').each(function(index,elemento){
+        $(elemento).text(contador);
+        contador++;
+        
+    })
 });
 
 $("#btn_crear").click(function(){

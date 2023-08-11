@@ -6,11 +6,21 @@ if(isset($_POST['opcion'])){
 
   if($opcion==="mostrarPerfiles"){
 
-    $sqlPerfiles="SELECT sis_usuario.folio,sis_usuario.nombre, COUNT(sis_perfil.folio) AS total_perfiles
-    FROM sis_usuario
-    LEFT JOIN sis_perfil ON sis_usuario.folio = sis_perfil.usuario
-    GROUP BY sis_usuario.folio
-    ORDER BY sis_usuario.folio LIMIT 10";
+    $sqlPerfiles="SELECT
+    u.folio,
+    u.nombre,
+    COUNT(DISTINCT p.grupo) AS total_perfiles
+FROM
+    sis_usuario u
+LEFT JOIN
+    sis_perfil p ON u.folio = p.usuario
+WHERE
+    u.activo = 1 and p.activo = 1
+GROUP BY
+    u.folio, u.nombre
+ORDER BY
+    u.folio
+LIMIT 10;";
    
 
     $result=mysqli_query($conexion,$sqlPerfiles);
@@ -55,9 +65,9 @@ if(isset($_POST['opcion'])){
 
       if($opcion==="obtener_descripcion"){
         $sql="SELECT cat_grupo.codigo, cat_grupo.descripcion
-        from cat_grupo
-        where activo = 1
-        order by codigo";
+              from cat_grupo
+              where activo = 1";
+
         $result=mysqli_query($conexion,$sql);
       
         $arreglo=[];
@@ -97,12 +107,46 @@ if(isset($_POST['opcion'])){
 
 if($opcion==="eliminarPerfil"){
   $folio = $_POST["folio"];
-  $sql = "UPDATE  sis_perfil SET activo = 0 WHERE folio=$folio";
+ 
+  $sql = "UPDATE sis_perfil SET activo = 0 WHERE folio=$folio";
   if($conexion->query($sql)===TRUE){
     echo(2);
   }else{
     echo(3);
   }
+  
+  
+  $conexion->close();
+}
+
+if($opcion==="eliminar_perfil"){
+  $folio = $_POST["folio"];
+ 
+  $sql = "UPDATE sis_perfil
+  set activo = 0 where sis_perfil.usuario = $folio";
+  if($conexion->query($sql)===TRUE){
+    echo(2);
+  }else{
+    echo(3);
+  }
+  
+  
+  $conexion->close();
+}
+
+if($opcion==="numPerfiles"){
+  $folio = $_POST["folio"];
+ 
+  $sql = "SELECT count(sis_perfil.usuario) as total_perfiles
+  from sis_perfil
+  where usuario = $folio";
+  if($conexion->query($sql)===TRUE){
+    echo(2);
+  }else{
+    echo(3);
+  }
+  
+  
   $conexion->close();
 }
 
@@ -142,13 +186,49 @@ ORDER BY folio_p
 
 if($opcion==="actualizar_perfil"){
   $folios_p=$_POST['folios_p'];
+  $codigos_p=$_POST['codigos_p'];
   $codigos=$_POST['codigos'];
+  $user=$_POST['user'];
+  $fecha_actual = date("d-m-y");
+  $hora_actual = date("h:i:s");
 
   for($i=0;$i<count($folios_p);$i++){
-    $sql = $conexion -> query("UPDATE sis_perfil SET grupo = '$codigos[$i]' where folio = $folios_p[$i]");
+    $sql = $conexion -> query("UPDATE sis_perfil SET grupo = '$codigos_p[$i]' where folio = $folios_p[$i]");
   }
+
+  for($i=0;$i<count($codigos);$i++){
+    $sql = $conexion -> query("INSERT INTO sis_perfil (fecha, hora, usuario, grupo, activo)
+                              VALUES ('$fecha_actual', '$hora_actual', '$user','$codigos[$i]', '1')");
+  }
+
   echo(1);
 }
+
+if($opcion==="buscar_foliop"){
+$folio = $_POST["folio"];
+$sql = "SELECT 
+        MAX(sis_perfil.folio) as folio_p, 
+        cat_grupo.codigo as codigo_g,
+        MAX(cat_grupo.descripcion) as descripcion_g
+        FROM sis_usuario
+        LEFT JOIN sis_perfil ON sis_usuario.folio = sis_perfil.usuario AND sis_perfil.activo = 1
+        LEFT JOIN cat_grupo ON sis_perfil.grupo = cat_grupo.codigo AND cat_grupo.activo = 1
+        WHERE sis_usuario.folio = $folio AND sis_usuario.activo = 1 AND cat_grupo.codigo IS NOT NULL
+        GROUP BY sis_perfil.usuario, cat_grupo.codigo
+        ORDER BY folio_p";
+
+  $result=mysqli_query($conexion,$sql);
+
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $arreglo[]=$row;
+    }
+  }
+  
+  $arregloLleno = json_encode($arreglo);
+  
+  echo($arregloLleno);
+  }
 
 if($opcion==="obtener_nombre_editar"){
   $folio = $_POST["folio"];
