@@ -2,16 +2,7 @@ var urlParams = new URLSearchParams(window.location.search);
 var folio = urlParams.get('id');
 document.getElementById("folio").value=folio;
 
-
 $("#data").append(
-    `<tr>
-        <td>#</td>
-        <td>Grupos</td>
-        <td>Eliminar</td>
-    </tr>`
-)
-
-$("#data_agregar").append(
     `<tr>
         <td>#</td>
         <td>Grupos</td>
@@ -44,6 +35,7 @@ function obtener_informacion (){
     })
     var contador = 1;
     var grupos_seleccionados = [];
+    var grupos_activos = [];
 
     $.ajax({
         url:"../../api.php",
@@ -60,14 +52,15 @@ function obtener_informacion (){
                     `<tr>
                         <td class="num">${contador}</td>
                         <td>
-                            <select class="grupos_perfiles_nuevos" data-folio="${objeto.folio_p}">
+                            <select disabled=true lass="grupos_perfiles_nuevos" data-folio="${objeto.folio_p}">
                                 <option class="codigo_nuevo" value="${objeto.codigo_g}">${objeto.descripcion_g}</option>
                             </select>
                         </td>
-                        <td><button class="btn_eliminar" value="${objeto.folio_p}">Eliminar</button></td>
+                        <td><button class="btn_eliminar" data-codigo="${objeto.codigo_g}" value="${objeto.folio_p}">Eliminar</button></td>
                     </tr>`
                 )
                 contador++;
+                grupos_activos.push(objeto.codigo_g)
                 
             });
             
@@ -76,8 +69,7 @@ function obtener_informacion (){
             console.error(error);
         } 
     })
-
-    var num_grupos = 0;
+    num_grupos = [];
 
     $.ajax({
         url:"../../api.php",
@@ -92,7 +84,7 @@ function obtener_informacion (){
                 if(!grupos_seleccionados.includes(objeto.codigo)){
                     $(".grupos_perfiles_nuevos").append(`<option value=${objeto.codigo}>${objeto.descripcion}</option>`)
                 }
-                num_grupos++;
+                num_grupos.push(objeto.codigo);
             });
         },
         error: function(error){
@@ -100,17 +92,25 @@ function obtener_informacion (){
         } 
     })
 
-    $(".btn_agregar_grupo").click(function(){        
-        contador++;
+    $(".btn_agregar_grupo").click(function(){      
+        sumador=1;  
+        
 
-        var comboBox = $(".grupos_perfiles_creados:last");
-       
-        if (comboBox.val() === "0") {
-            alert("Debe seleccionar una opción antes de agregar otro elemento.");
-            return; 
+        var num_opciones = $('.grupos_perfiles_creados:last option').length;
+        console.log(num_opciones);
+        
+
+        if(num_opciones==2){
+            alert("Ya no hay más grupos por agregar.");
+            return
         }
 
-        $("#data_agregar").append(
+        /*if (comboBox.val() === "0") {
+            alert("Debe seleccionar una opción antes de agregar otro elemento.");
+            return; 
+        }*/
+
+        $("#data").append(
             `<tr>
             <td class="num">${contador}</td>
             <td><select class="grupos_perfiles_creados"></select></td>
@@ -138,6 +138,11 @@ function obtener_informacion (){
                     }  
                 })
 
+                $(".num").each(function(){
+                    $(this).text(sumador);
+                    sumador++;
+                })
+
                 data.forEach(function(objeto) {                    
                     if (!elem_sel.includes(objeto.codigo) && !grupos_seleccionados.includes(objeto.codigo)) {
                         comboBox.append(`<option value="${objeto.codigo}">${objeto.descripcion}</option>`);
@@ -160,123 +165,117 @@ function obtener_informacion (){
             });
         });
     });
-}
 
-
-$('body').on('click', '.btn_eliminar', function() {
-    const longitudTabla = $('#data tr').length;
-    const longitudTabla2 = $('#data_agregar tr').length;
-    folio = $(this).val();
-    var rowToDelete = $(this).closest('tr');
-    num_perfiles=0;
-
-    if(longitudTabla + longitudTabla2 == 3){
-        alert("El usuario debe pertenecer a un grupo");
-    }else{
-        $.ajax({
-            url:"../../api.php",
-            type:"POST",
-            data:{
-                folio:folio,
-                opcion:"numPerfiles"
-            },success:function(response){
-                var datos = JSON.parse(response);
-                
-                num_perfiles = datos;
-            },
-            error: function(error){
-                console.error(error);
-            } 
-        })
-
-        if(num_perfiles!=1){
+    $('body').on('click', '.btn_eliminar', function() {
+        codigo_borrar = $(this).data('codigo');
+        
+        const resultado = grupos_activos.filter(codigo => codigo != codigo_borrar);
+        console.log(resultado);
+        
+        const longitud_perfiles = $('.grupos_perfiles_nuevos').length;
+        folio = $(this).val();
+        var borrar_fila = $(this).closest('tr');
+        var num_perfiles=0;
+    
+        if(longitud_perfiles == 1){
+            alert("El usuario debe pertenecer al menos a un grupo");
+        }else{
             $.ajax({
-            url:"../../api.php",
-            type:"POST",
-            data:{
-                folio:folio,
-                opcion:"eliminarPerfil"
-            },success:function(response){
-                if(response == 2){
-                    alert("Perfil eliminado correctamente");
-                    $(rowToDelete).closest('tr').remove();
-                    contador=1;
-                    $('.num').each(function(index,elemento){
-                        $(elemento).text(contador);
-                        contador++;
-                    })
-                }else{
-                    alert("Fallo al eliminar perfil.")
-                }
-            },
-            error: function(error){
-                console.error(error);
+                url:"../../api.php",
+                type:"POST",
+                data:{
+                    folio:folio,
+                    opcion:"numPerfiles"
+                },success:function(response){
+                    var datos = JSON.parse(response);
+                    
+                    num_perfiles = datos;
+                    
+                },
+                error: function(error){
+                    console.error(error);
                 } 
             })
-        }else{
-            alert("El usuario debe tener al menos un perfil.")
+    
+            if(num_perfiles!=1){
+                $.ajax({
+                url:"../../api.php",
+                type:"POST",
+                data:{
+                    folio:folio,
+                    opcion:"eliminarPerfil"
+                },success:function(response){
+                    if(response == 2){
+                        alert("Perfil eliminado correctamente.");
+                        $(borrar_fila).closest('tr').remove();
+                        var elem_sel = [];
+                        $(".grupos_perfiles_creados").each(function(){
+                            var valor_seleccionado = $(this).val();
+                            if(valor_seleccionado!=0){
+                                elem_sel.push(valor_seleccionado);
+                            }  
+                        })
+                        contador=1;
+                        $('.num').each(function(index,elemento){
+                            $(elemento).text(contador);
+                            contador++;
+                        })
+                    }else{
+                        alert("Fallo al eliminar perfil.")
+                    }
+                },
+                error: function(error){
+                    console.error(error);
+                    } 
+                })
+            }else{
+                alert("El usuario debe tener al menos un perfil.")
+            }
         }
-    }
-
-    contador=1;
-    $('.num').each(function(index,elemento){
-        $(elemento).text(contador);
-        contador++;
-    })
-});
-
-$('body').on('click', '.btn_eliminar_nuevo', function() {
-    const longitudTabla = $('#data tr').length;
-    const longitudTabla2 = $('#data_agregar tr').length;
-    var rowToDelete = $(this).closest('tr');
-    num_perfiles=0;
-
-    if(longitudTabla + longitudTabla2 === 3){
-        alert("El usuario debe pertenecer a un grupo");
-    }else{
         
-        $(rowToDelete).closest('tr').remove();
+    
         contador=1;
         $('.num').each(function(index,elemento){
             $(elemento).text(contador);
             contador++;
         })
-    }
+    });
+}
+
+
+$('body').on('click', '.btn_eliminar_nuevo', function() {
+    var borrar_fila = $(this).closest('tr');
+        
+    $(borrar_fila).closest('tr').remove();
+    contador=1;
+    $('.num').each(function(index,elemento){
+        $(elemento).text(contador);
+        contador++;
+    })
     
 });
 
-
-
 $(document).ready(function() {
     $(document).on('click', '.btn_actualizar', function() {
-        var codigos_p = [];
-        var folios = [];
         var codigos_array = [];
-        $('.grupos_perfiles_nuevos').not(this).each(function() {
-            if ($(this).val() !== "0") {
-                codigos_p.push($(this).val());
-            }
-            if ($(this).data('folio') !== "0") {
-                folios.push($(this).data('folio')); 
-            }
-        });
-
         $('.grupos_perfiles_creados').not(this).each(function() {
             codigos_array.push($(this).val());
-            console.log(codigos_array);
         });
 
+        if(codigos_array.length===0){
+            alert("No se ha realizado ningún cambio");
+            return;
+        }
+    
+        console.log(codigos_array)
         $.ajax({
             url:"../../api.php",
             type:"post",
             data:{
                 user : folio,
                 codigos : codigos_array,
-                codigos_p : codigos_p,
-                folios_p : folios,
                 opcion : "actualizar_perfil"
             },success: function(response){
-                console.log(response);
                 if(response==1){
                     alert("Actualizacion completado correctamente.");
                     location.reload();

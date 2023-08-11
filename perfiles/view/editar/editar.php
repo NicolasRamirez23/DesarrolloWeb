@@ -9,7 +9,18 @@
 <!DOCTYPE html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  
+<style>
+table,
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid black;
+        
+       
+      }
+      
+
+</style>
     <title>Edicion de Perfiles</title>
 </head>
 <body  style="background-color: #fd7e14;">
@@ -44,21 +55,14 @@
                 <input type="usuario_editar" name="usuario_editar" id="usuario_editar" readonly></input>
                 <br><br>
 
+                <button class="btn_agregar_grupo">Agregar a grupo</button>
+                <br><br>
 
                 <div class="contenedor_combobox">
                     <label>Grupo ingresados actualmente</label>
-                    <table class="table table-bordered border-primary" 
-                            style="background-color: #A0FCFF;" id="data">
-                    </table>
+                    <table class="table table-hover table-fixed" 
+                style="background-color: #A0FCFF;" id="data"></table>
                     <br><br>
-
-                    <button class="btn_agregar_grupo">Agregar a grupo</button>
-                    <br><br>
-
-                    <label>Agregar a nuevo grupo</label>
-                    <table class="table table-bordered border-primary" 
-                            style="background-color: #A0FCFF;" id="data_agregar">
-                    </table>
                 </div>
                 <br><br><br><br><br><br>
 

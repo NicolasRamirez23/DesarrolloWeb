@@ -185,24 +185,19 @@ ORDER BY folio_p
 
 
 if($opcion==="actualizar_perfil"){
-  $folios_p=$_POST['folios_p'];
-  $codigos_p=$_POST['codigos_p'];
   $codigos=$_POST['codigos'];
   $user=$_POST['user'];
   $fecha_actual = date("d-m-y");
   $hora_actual = date("h:i:s");
 
-  for($i=0;$i<count($folios_p);$i++){
-    $sql = $conexion -> query("UPDATE sis_perfil SET grupo = '$codigos_p[$i]' where folio = $folios_p[$i]");
-  }
-
   for($i=0;$i<count($codigos);$i++){
     $sql = $conexion -> query("INSERT INTO sis_perfil (fecha, hora, usuario, grupo, activo)
                               VALUES ('$fecha_actual', '$hora_actual', '$user','$codigos[$i]', '1')");
   }
-
   echo(1);
 }
+
+
 
 if($opcion==="buscar_foliop"){
 $folio = $_POST["folio"];

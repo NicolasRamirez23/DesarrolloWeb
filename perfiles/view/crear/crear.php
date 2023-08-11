@@ -44,7 +44,7 @@
                 <br><br>
 
                 <div class="contenedor">
-                    <table class="table table-bordered border-primary" 
+                    <table class="table table-hover table-fixed"
                     style="background-color: #A0FCFF;" id="data">
                     
                     </table>
