@@ -11,6 +11,7 @@ $(".btn").click(function(){
             pass:clave
         },
         success:function(datos){
+            
             if (datos==1){
                 alert("Datos correctos. Bienvenido "+usuario);
             }else{

@@ -28,8 +28,8 @@ if(isset($_POST['opcion'])){
             $fecha_actual = date("d-m-y");
             $hora_actual = date("h:i:s");
         
-            $sql = $conexion -> query("INSERT INTO  cat_grupo (fecha,hora,descripcion) 
-            values('$fecha_actual','$hora_actual','$descripcion')");
+            $sql = $conexion -> query("INSERT INTO  cat_grupo (fecha,hora,descripcion,activo) 
+            values('$fecha_actual','$hora_actual','$descripcion','1')");
         
             echo(1);
         

@@ -72,7 +72,7 @@ function eliminar(id){
 
 $("#crear").click(function(){
 
-    window.location.href = "view/crear/crear.php";
+    window.location.href = "crear/crear.php";
 })
 
 

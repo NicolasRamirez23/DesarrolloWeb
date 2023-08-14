@@ -1,5 +1,5 @@
 <?php 
-    require("../../../config/config.inc");
+    require("../../config/config.inc");
     if(!isset($_SESSION['usuario'])){
         header ("location: ../../../login/index.php");
     }else{

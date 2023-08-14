@@ -10,17 +10,17 @@ if(isset($_POST['opcion'])){
     u.folio,
     u.nombre,
     COUNT(DISTINCT p.grupo) AS total_perfiles
-FROM
-    sis_usuario u
-LEFT JOIN
-    sis_perfil p ON u.folio = p.usuario
-WHERE
-    u.activo = 1 and p.activo = 1
-GROUP BY
-    u.folio, u.nombre
-ORDER BY
-    u.folio
-LIMIT 10;";
+    FROM
+        sis_usuario u
+    LEFT JOIN
+        sis_perfil p ON u.folio = p.usuario
+    WHERE
+        u.activo = 1 and p.activo = 1
+    GROUP BY
+        u.folio, u.nombre
+    ORDER BY
+        u.folio
+    LIMIT 10;";
    
 
     $result=mysqli_query($conexion,$sqlPerfiles);

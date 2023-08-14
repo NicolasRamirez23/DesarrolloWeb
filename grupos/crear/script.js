@@ -4,7 +4,7 @@ $("#btncrear").click(function(){
     
 
     $.ajax({
-        url:"../../api.php",
+        url:"../api.php",
         type:"POST",
         data: {
             descripcion: descripcion,
@@ -13,7 +13,7 @@ $("#btncrear").click(function(){
         success: function(datos){
             if(datos==1){
                 alert("Grupo creado exitosamente!");
-                window.location.href = "../../index.php";
+                window.location.href = "../index.php";
             }else{
                 alert("Error al realizar la creacion del grupo");
             }

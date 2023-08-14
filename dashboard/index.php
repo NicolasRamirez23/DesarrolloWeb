@@ -14,7 +14,7 @@
         END AS resultado
         FROM sis_perfil
         LEFT JOIN cat_grupo ON cat_grupo.codigo = sis_perfil.grupo
-        WHERE sis_perfil.usuario = '$folio' AND (sis_perfil.grupo = 13 OR sis_perfil.grupo = 12)";
+        WHERE sis_perfil.usuario = '$folio' AND (sis_perfil.grupo = 1 OR sis_perfil.grupo = 2)";
 
         $resultado = mysqli_query($conexion, $consulta);
 
