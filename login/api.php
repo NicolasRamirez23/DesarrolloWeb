@@ -5,24 +5,22 @@ include('../config/db.inc');
 $user = $_POST["user"];
 $clave = $_POST["pass"];
 
-$consulta = "SELECT*FROM sis_usuario where usuario = '$user' and contrasena = '$clave'";
+$consulta = "SELECT folio FROM sis_usuario where usuario = '$user' and contrasena = '$clave'";
 
-$resultado = mysqli_query($conexion,$consulta);
+$resultado = mysqli_query($conexion, $consulta);
 
-$filas = mysqli_num_rows($resultado);
-
-if($filas){
-    $_SESSION['usuario']=$user;
-    echo  "1";
-}else{
-    echo "0";
+if ($resultado) {
+    $fila = mysqli_fetch_assoc($resultado);
+    
+    if ($fila) {
+        $_SESSION['usuario'] = $user;
+        $_SESSION['folio'] = $fila['folio']; 
+        echo 1;
+    } else {
+        echo 0; 
+    }
+} else {
+    echo 0; 
 }
+?>
 
-mysqli_free_result($resultado);
-mysqli_close($conexion);
-
-
-
-
-
-?>  

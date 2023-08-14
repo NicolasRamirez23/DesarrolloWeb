@@ -1,9 +1,30 @@
 <?php 
     require("../config/config.inc");
+    require("../config/db.inc");
     if(!isset($_SESSION['usuario'])){
         header ("location: ../login/index.php");
     }else{
         $usuario = $_SESSION['usuario'];
+        $folio = $_SESSION['folio'];
+
+        $consulta ="SELECT 
+        CASE 
+            WHEN COUNT(*) > 0 THEN true 
+            ELSE false 
+        END AS resultado
+        FROM sis_perfil
+        LEFT JOIN cat_grupo ON cat_grupo.codigo = sis_perfil.grupo
+        WHERE sis_perfil.usuario = '$folio' AND (sis_perfil.grupo = 13 OR sis_perfil.grupo = 12)";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        if ($resultado) {
+            $fila = mysqli_fetch_assoc($resultado);
+            
+            if ($fila) {
+                $codigo = $fila['resultado'];
+            }
+        }
     }
 ?>
 
@@ -16,35 +37,14 @@
     <title>Menu Principal </title>
 </head>
 <body style="background-color: #fd7e14;">
-
-<div class="container">
-  <div class="row">
-    <div class="col">
-    </div>
-    <div class="col">
-       <h1 class="text-center">¡Hola, bienvenido <?php echo $usuario ?>! </h1>
-       <div class="text-center">
-            <button id="usuarios" type="boton" name="btnusuario" class="btn btn-primary">Ver Usuarios</button>
-                
-                <br>
-                <br>
-
-                <button id="grupos" type="boton" name="btn_grupo" class="btn btn-primary"> Ver Grupo</button>
-                <br>
-                <br>
-
-                <button id="perfiles" type="boton" name="perfiles" class="btn btn-primary"> Ver Perfiles</button>
-                <br>
-                <br>
-                
-                <button id="btncs" type="boton" name="botoncs" class="btn btn-danger">Cerrar Sesion</button>
-                </div>
-       </div>
-    <div class="col">
-    </div>
-  </div>
-</div>
-    
+        <?php if($codigo === '1'){
+                header("Location: views/dev/dev.php?"); 
+                exit;
+            }else{
+                header("Location: views/general/general.php"); 
+                exit;
+            }
+            ?>
 </body>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src ="script.js"></script>
