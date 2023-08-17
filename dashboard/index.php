@@ -6,6 +6,7 @@
     }else{
         $usuario = $_SESSION['usuario'];
         $folio = $_SESSION['folio'];
+        $nombre = $_SESSION['nombres'];
 
         $consulta ="SELECT 
         CASE 

@@ -75,7 +75,7 @@ function eliminar(id){
         },
         success: function(datos){   
             if(datos==2){
-                alert("Perfiles de usuario #"+id+" eliminado correctamente");
+                alert("Perfiles de usuario #"+id+" eliminados correctamente");
                 window.location.href = "index.php";
             }if(datos==3){
                 alert("Error al eliminar perfil");
