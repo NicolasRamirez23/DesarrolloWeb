@@ -1,12 +1,11 @@
 <?php require("../config/db.inc");
 
-
-if(isset($_POST['opcion'])){
+if (isset($_POST['opcion'])) {
   $opcion = $_POST['opcion'];
 
-  if($opcion==="mostrarPerfiles"){
+  if ($opcion === "mostrarPerfiles") {
 
-    $sqlPerfiles="SELECT
+    $sqlPerfiles = "SELECT
     u.folio,
     u.nombre,
     COUNT(DISTINCT p.grupo) AS total_perfiles
@@ -21,72 +20,70 @@ if(isset($_POST['opcion'])){
     ORDER BY
         u.folio
     LIMIT 10;";
-   
 
-    $result=mysqli_query($conexion,$sqlPerfiles);
-  
-    $arreglo=[];
-  
-  
+    $result = mysqli_query($conexion, $sqlPerfiles);
+
+    $arreglo = [];
+
     if ($result->num_rows > 0) {
       // output data of each row
-      while($row = $result->fetch_assoc()) {
-        $arreglo[]=$row;
+      while ($row = $result->fetch_assoc()) {
+        $arreglo[] = $row;
       }
     }
-    
+
     $arregloLleno = json_encode($arreglo);
-    
+
     print_r($arregloLleno);
-    }
-  
-    if($opcion==="obtener_nombre"){
-      $sql="SELECT sis_usuario.nombre,sis_usuario.folio, count(sis_perfil.folio) as total_perfiles
+  }
+
+  if ($opcion === "obtener_nombre") {
+    $sql = "SELECT sis_usuario.nombre,sis_usuario.folio, count(sis_perfil.folio) as total_perfiles
       from sis_usuario
       left join sis_perfil on sis_usuario.folio = sis_perfil.usuario
       group by (sis_usuario.folio)
       having (total_perfiles)<1";
-      $result=mysqli_query($conexion,$sql);
-    
-      $arreglo=[];
-    
-    
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          $arreglo[]=$row;
-        }
-      }
-      
-      $arregloLleno = json_encode($arreglo);
-      
-      echo($arregloLleno);
-      }
+    $result = mysqli_query($conexion, $sql);
 
-      if($opcion==="obtener_descripcion"){
-        $sql="SELECT cat_grupo.codigo, cat_grupo.descripcion
+    $arreglo = [];
+
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while ($row = $result->fetch_assoc()) {
+        $arreglo[] = $row;
+      }
+    }
+
+    $arregloLleno = json_encode($arreglo);
+
+    echo ($arregloLleno);
+  }
+
+  if ($opcion === "obtener_descripcion") {
+    $sql = "SELECT cat_grupo.codigo, cat_grupo.descripcion
               from cat_grupo
               where activo = 1";
 
-        $result=mysqli_query($conexion,$sql);
-      
-        $arreglo=[];
-      
-      
-        if ($result->num_rows > 0) {
-          // output data of each row
-          while($row = $result->fetch_assoc()) {
-            $arreglo[]=$row;
-          }
-        }
-        
-        $arregloLleno = json_encode($arreglo);
-        
-        echo($arregloLleno);
-        }
+    $result = mysqli_query($conexion, $sql);
+
+    $arreglo = [];
 
 
-  if($opcion === "crear_perfil"){
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while ($row = $result->fetch_assoc()) {
+        $arreglo[] = $row;
+      }
+    }
+
+    $arregloLleno = json_encode($arreglo);
+
+    echo ($arregloLleno);
+  }
+
+
+  if ($opcion === "crear_perfil") {
     $codigos = $_POST["codigos"];
     $folio = $_POST["folio"];
 
@@ -94,65 +91,65 @@ if(isset($_POST['opcion'])){
     $hora_actual = date("h:i:s");
 
 
-    for($i = 0; $i < count($codigos); $i++){
+    for ($i = 0; $i < count($codigos); $i++) {
       $codigo_actual = $codigos[$i];
-      $sql = $conexion -> query("INSERT INTO sis_perfil (fecha,hora,usuario,grupo,activo) 
+      $sql = $conexion->query("INSERT INTO sis_perfil (fecha,hora,usuario,grupo,activo) 
       VALUES ('$fecha_actual','$hora_actual','$folio','$codigo_actual','1')");
 
     }
-    
-    echo(1);
 
-}
+    echo (1);
 
-if($opcion==="eliminarPerfil"){
-  $folio = $_POST["folio"];
- 
-  $sql = "UPDATE sis_perfil SET activo = 0 WHERE folio=$folio";
-  if($conexion->query($sql)===TRUE){
-    echo(2);
-  }else{
-    echo(3);
   }
-  
-  
-  $conexion->close();
-}
 
-if($opcion==="eliminar_perfil"){
-  $folio = $_POST["folio"];
- 
-  $sql = "UPDATE sis_perfil
+  if ($opcion === "eliminarPerfil") {
+    $folio = $_POST["folio"];
+
+    $sql = "UPDATE sis_perfil SET activo = 0 WHERE folio=$folio";
+    if ($conexion->query($sql) === TRUE) {
+      echo (2);
+    } else {
+      echo (3);
+    }
+
+
+    $conexion->close();
+  }
+
+  if ($opcion === "eliminar_perfil") {
+    $folio = $_POST["folio"];
+
+    $sql = "UPDATE sis_perfil
   set activo = 0 where sis_perfil.usuario = $folio";
-  if($conexion->query($sql)===TRUE){
-    echo(2);
-  }else{
-    echo(3);
-  }
-  
-  
-  $conexion->close();
-}
+    if ($conexion->query($sql) === TRUE) {
+      echo (2);
+    } else {
+      echo (3);
+    }
 
-if($opcion==="numPerfiles"){
-  $folio = $_POST["folio"];
- 
-  $sql = "SELECT count(sis_perfil.usuario) as total_perfiles
+
+    $conexion->close();
+  }
+
+  if ($opcion === "numPerfiles") {
+    $folio = $_POST["folio"];
+
+    $sql = "SELECT count(sis_perfil.usuario) as total_perfiles
   from sis_perfil
   where usuario = $folio";
-  if($conexion->query($sql)===TRUE){
-    echo(2);
-  }else{
-    echo(3);
-  }
-  
-  
-  $conexion->close();
-}
+    if ($conexion->query($sql) === TRUE) {
+      echo (2);
+    } else {
+      echo (3);
+    }
 
-if($opcion==="buscarUsuario"){
-  $folio = $_POST["folio"];
-  $sql = "SELECT 
+
+    $conexion->close();
+  }
+
+  if ($opcion === "buscarUsuario") {
+    $folio = $_POST["folio"];
+    $sql = "SELECT 
   sis_usuario.folio as folio_u,
   sis_usuario.nombre as nombre_u,
   sis_usuario.fecha as fecha_u, 
@@ -170,38 +167,38 @@ GROUP BY sis_perfil.usuario, cat_grupo.codigo
 ORDER BY folio_p
 ";
 
-  $result=mysqli_query($conexion,$sql);
+    $result = mysqli_query($conexion, $sql);
 
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $arreglo[]=$row;
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $arreglo[] = $row;
+      }
     }
+
+    $arregloLleno = json_encode($arreglo);
+
+    echo ($arregloLleno);
   }
-  
-  $arregloLleno = json_encode($arreglo);
-  
-  echo($arregloLleno);
-  }
 
 
-if($opcion==="actualizar_perfil"){
-  $codigos=$_POST['codigos'];
-  $user=$_POST['user'];
-  $fecha_actual = date("d-m-y");
-  $hora_actual = date("h:i:s");
+  if ($opcion === "actualizar_perfil") {
+    $codigos = $_POST['codigos'];
+    $user = $_POST['user'];
+    $fecha_actual = date("d-m-y");
+    $hora_actual = date("h:i:s");
 
-  for($i=0;$i<count($codigos);$i++){
-    $sql = $conexion -> query("INSERT INTO sis_perfil (fecha, hora, usuario, grupo, activo)
+    for ($i = 0; $i < count($codigos); $i++) {
+      $sql = $conexion->query("INSERT INTO sis_perfil (fecha, hora, usuario, grupo, activo)
                               VALUES ('$fecha_actual', '$hora_actual', '$user','$codigos[$i]', '1')");
+    }
+    echo (1);
   }
-  echo(1);
-}
 
 
 
-if($opcion==="buscar_foliop"){
-$folio = $_POST["folio"];
-$sql = "SELECT 
+  if ($opcion === "buscar_foliop") {
+    $folio = $_POST["folio"];
+    $sql = "SELECT 
         MAX(sis_perfil.folio) as folio_p, 
         cat_grupo.codigo as codigo_g,
         MAX(cat_grupo.descripcion) as descripcion_g
@@ -212,82 +209,82 @@ $sql = "SELECT
         GROUP BY sis_perfil.usuario, cat_grupo.codigo
         ORDER BY folio_p";
 
-  $result=mysqli_query($conexion,$sql);
+    $result = mysqli_query($conexion, $sql);
 
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $arreglo[]=$row;
-    }
-  }
-  
-  $arregloLleno = json_encode($arreglo);
-  
-  echo($arregloLleno);
-  }
-
-if($opcion==="obtener_nombre_editar"){
-  $folio = $_POST["folio"];
-  $sql="SELECT sis_usuario.nombre
-  from sis_usuario
-  where sis_usuario.folio = $folio";
-  $result=mysqli_query($conexion,$sql);
-
-  $arreglo=[];
-
-
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      $arreglo[]=$row;
-    }
-  }
-  
-  $arregloLleno = json_encode($arreglo);
-  
-  echo($arregloLleno);
-  }
-
-  if($opcion==="buscar_grupos"){
-    $sql="SELECT cat_grupo.codigo,cat_grupo.descripcion
-    from cat_grupo";
-
-    $result=mysqli_query($conexion,$sql);
-  
-    $arreglo=[];
-  
-  
     if ($result->num_rows > 0) {
-      // output data of each row
-      while($row = $result->fetch_assoc()) {
-        $arreglo[]=$row;
+      while ($row = $result->fetch_assoc()) {
+        $arreglo[] = $row;
       }
     }
-    
+
     $arregloLleno = json_encode($arreglo);
-    
-    echo($arregloLleno);
+
+    echo ($arregloLleno);
+  }
+
+  if ($opcion === "obtener_nombre_editar") {
+    $folio = $_POST["folio"];
+    $sql = "SELECT sis_usuario.nombre
+  from sis_usuario
+  where sis_usuario.folio = $folio";
+    $result = mysqli_query($conexion, $sql);
+
+    $arreglo = [];
+
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while ($row = $result->fetch_assoc()) {
+        $arreglo[] = $row;
+      }
     }
 
-    if($opcion==="buscarDescripcion"){
-      $codigo = $_POST["codigo"];
-      $sql="SELECT codigo,descripcion
+    $arregloLleno = json_encode($arreglo);
+
+    echo ($arregloLleno);
+  }
+
+  if ($opcion === "buscar_grupos") {
+    $sql = "SELECT cat_grupo.codigo,cat_grupo.descripcion
+    from cat_grupo";
+
+    $result = mysqli_query($conexion, $sql);
+
+    $arreglo = [];
+
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while ($row = $result->fetch_assoc()) {
+        $arreglo[] = $row;
+      }
+    }
+
+    $arregloLleno = json_encode($arreglo);
+
+    echo ($arregloLleno);
+  }
+
+  if ($opcion === "buscarDescripcion") {
+    $codigo = $_POST["codigo"];
+    $sql = "SELECT codigo,descripcion
             from cat_grupo
             where activo = 1 and codigo != $codigo";
 
-      $result=mysqli_query($conexion,$sql);
-    
-      $arreglo=[];
-    
-    
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          $arreglo[]=$row;
-        }
+    $result = mysqli_query($conexion, $sql);
+
+    $arreglo = [];
+
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while ($row = $result->fetch_assoc()) {
+        $arreglo[] = $row;
       }
-      
-      $arregloLleno = json_encode($arreglo);
-      
-      echo($arregloLleno);
-      }
+    }
+
+    $arregloLleno = json_encode($arreglo);
+
+    echo ($arregloLleno);
+  }
 }

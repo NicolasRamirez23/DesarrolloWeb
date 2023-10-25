@@ -41,25 +41,12 @@
             }
         }
     }
+    
+if($codigo === '1'){
+    header("Location: view/encargado/encargado.php?folio=$folio&nombre=$nombre"); 
+    exit;
+}else{
+    header("Location: view/dev/dev.php?folio=$folio&nombre=$nombre"); 
+    exit;
+}
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>Menu Principal </title>
-</head>
-<body style="background-color: #fd7e14;">
-        <?php if($codigo === '1'){
-                header("Location: view/encargado/encargado.php?folio=$folio&nombre=$nombre"); 
-                exit;
-            }else{
-                header("Location: view/dev/dev.php?folio=$folio&nombre=$nombre"); 
-                exit;
-            }
-            ?>
-</body>
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src ="script.js"></script>
-</html>

@@ -12,7 +12,6 @@ $db = "pruebas";
 
 $conexion = new mysqli($server,$user,$pass,$db);
 
-
 if(!$conexion){
    
     die("conexion fallida " . $conexion->connect_errno); 

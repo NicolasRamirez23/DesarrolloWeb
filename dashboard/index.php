@@ -1,5 +1,5 @@
 <?php 
-    require("../config/config.inc");
+   /* require("../config/config.inc");
     require("../config/db.inc");
     if(!isset($_SESSION['usuario'])){
         header ("location: ../login/index.php");
@@ -26,7 +26,7 @@
                 $codigo = $fila['resultado'];
             }
         }
-    }
+    }*/
 ?>
 
 <!DOCTYPE html>
@@ -38,15 +38,24 @@
     <title>Menu Principal </title>
 </head>
 <body style="background-color: #fd7e14;">
-        <?php if($codigo === '1'){
+        <?php /*if($codigo === '1'){
                 header("Location: views/dev/dev.php?"); 
                 exit;
             }else{
                 header("Location: views/general/general.php"); 
                 exit;
-            }
+            }*/
+
+            
             ?>
+
+            <div class="contador"></div>
+            <br><br>
+
+            <button class="agregar">Agregar Registro</button>
+
+            <button class="eliminar">Eliminar Registro</button>
+        <script src="bundle.js"></script>
 </body>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src ="script.js"></script>
 </html>

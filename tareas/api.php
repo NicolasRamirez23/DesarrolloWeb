@@ -3,6 +3,27 @@
 if(isset($_POST['opcion'])){
     $opcion = $_POST['opcion'];
 
+    if($opcion === 'obtener_grupo'){
+      $consulta ="SELECT 
+        CASE 
+            WHEN COUNT(*) > 0 THEN true 
+            ELSE false 
+        END AS resultado
+        FROM sis_perfil
+        LEFT JOIN cat_grupo ON cat_grupo.codigo = sis_perfil.grupo
+        WHERE sis_perfil.usuario = '$folio' AND sis_perfil.grupo = 1";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        if ($resultado) {
+            $fila = mysqli_fetch_assoc($resultado);
+            
+            if ($fila) {
+                $codigo = $fila['resultado'];
+            }
+        }
+    }
+
     if($opcion === 'buscar_developers'){
         
     $sql="SELECT sis_perfil.usuario as folio, sis_usuario.nombre as nombre

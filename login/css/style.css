@@ -1,4 +1,4 @@
-body{
+body {
   background-image: url(complementos/naranja.avif);
   background-size: cover;
   text-align: center;
@@ -6,74 +6,47 @@ body{
   font: message-box;
 }
 
-.contenedor{
-  columns: 2;
-  width:1100px;
-  height:700px;
-  background-position: center;
-  padding:9px;
-  margin:auto;
-  text-align: center;
-  transform: translateY(50px);
-  padding-top: 50px;
-}
-
-#login1{
+#login1 {
   background-image: url(complementos/bg1.jpg);
-  background-size: contain;
-  columns: 1px;
-  width:600px;
-  height:700px;
-  box-shadow: 10px 10px 4px rgba(0,0,0,0.2);
+
+  width: 550px;
+  height: 650px;
   border-radius: 20px;
 }
 
-#login2{
-  width:550px;
-  height:700px;
-  background-color:white;
-  transform:translateX(-20px);
-  box-shadow: 10px 10px 4px rgba(0,0,0,0.2);
+#login2 {
+  width: 550px;
+  height: 650px;
+  background-color: white;
+  box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
 }
 
-.input{
+.input {
   transform: translateY(90px);
   width: 400px;
   height: 40px;
   border-radius: 220px;
   text-align: center;
-  box-shadow: 0 10px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 4px rgba(0, 0, 0, 0.2);
 }
 
-.contenedor img{
-  position: absolute;
-  top: 10px; 
-  right: 30px;
-}
-
-.btn{
+.btn {
   transform: translateY(110px);
   font-size: 1rem;
   font-weight: 700;
-  padding: 0.5em 7em;
-  color: var(--clr-accent);
+
   border-radius: 220px;
   transition: all 0.3s;
   background-color: lightsalmon;
   box-shadow: 0 10px 4px rgba(0, 0, 0, 0.2);
 }
 
-.btn:hover{
-  transform: translateY(105px);
-}
-
-.texto{
+.texto {
   transform: translatey(90px);
 }
 
-.titulo{
+.titulo {
   font-weight: bolder;
   transform: translateY(70px);
-  
 }
