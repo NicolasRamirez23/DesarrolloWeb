@@ -8,7 +8,7 @@
     <div class="col-6" id="login2">
       <img src="css/complementos/logo.jpg" width="100">
       <br>
-      <h1 class="titulo">Bienvenido</h1>
+      <h1 class="titulo">Bienvenidooooooooooooooooooooooooooooooooooooo</h1>
       <br>
 
       <form action="index.php" method="POST" id="formulario">
